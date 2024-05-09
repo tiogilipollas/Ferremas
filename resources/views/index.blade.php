@@ -13,8 +13,8 @@
             <ul class="nav-links">
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Herramientas</a></li>
-                <li><a href="#">Materiales</a></li>
-                <li><a href="#">Iniciar sesión</a></li>
+                <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
+
             </ul>
         </div>
     </nav>
@@ -51,7 +51,6 @@
 </section>
 
 
-<!-- Categorías de Productos -->
 <section class="product-categories">
     <div class="container">
         <h2 class="section-title">Categorías de Productos</h2>
@@ -64,7 +63,7 @@
             </div>
             <div class="category">
                 <img src="https://st3.depositphotos.com/1001335/14944/i/450/depositphotos_149444160-stock-illustration-materials-for-construction-3d-illustration.jpg" alt="Categoría 2" class="category-image">
-                <a href="#" class="category-link">
+                <a href="{{ route('materiales') }}" class="category-link">
                     <span class="category-title">Materiales</span>
                 </a>
             </div>
