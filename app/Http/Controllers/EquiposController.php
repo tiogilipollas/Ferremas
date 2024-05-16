@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto; // Importa el modelo Producto
 use Illuminate\Support\Facades\DB;
 
-class ProductoController extends Controller
+class EquiposController extends Controller
 {
     /**
      * Muestra los productos destacados.
@@ -16,19 +16,19 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = DB::table('productos as p')
-                    ->join('materialesbasicos as hm', 'p.id_producto', '=', 'hm.id_producto')
+                    ->join('equiposseguridad as hm', 'p.id_producto', '=', 'hm.id_producto')
                     ->select('p.id_producto', 'p.nombre', 'p.precio', 'hm.*') 
                     ->get();
-
+                    
         $imagenes = [
-            7 => '/img/cemento.jpg',
-            8 => '/img/arena.webp',
-            9 => '/img/ladrillo.webp',
-            10 => '/img/pintura.jpg',
-            11 => '/img/barnices.jfif',
-            12 => '/img/ceramica.jfif'
+            13 => '/img/cascos.jfif',
+            14 => '/img/guantes.jfif',
+            15 => '/img/lentes.webp ',
+            16 => '/img/tornillos_anclajes.jpg',
+            17 => '/img/fijaciones_adhesivos.jpg',
+            18 => '/img/medicion.png'
         ];
-    
-        return view('materiales', ['productos' => $productos, 'imagenes' => $imagenes]);
+
+        return view('equipos', ['productos' => $productos, 'imagenes' => $imagenes]);
     }
 }

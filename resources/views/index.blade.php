@@ -11,13 +11,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="overlay"></div>
 <nav class="navbar">
     <div class="container d-flex justify-content-between">
         <div class="d-flex align-items-center">
             <span class="brand">FERREMAS</span>
-            <!-- Botón que abre el aside -->
-            <button type="button" class="btn btn-primary ml-2" onclick="toggleAside()">Herramientas
-        </button>
+            <button type="button" class="btn btn-primary ml-2" id="toggleAsideButton">Herramientas</button>
         </div>
         <ul class="nav-links">
             <li><a href="#">Inicio</a></li>
@@ -27,29 +26,14 @@
 </nav>
 
 
-<!-- Aside -->
 <aside id="herramientasAside">
     <h5>Herramientas</h5>
     <ul>
-        <li><button class="custom-button">Herramientas Manuales</button></li>
-        <li><button class="custom-button">Materiales Básicos</button></li>
-        <li><button class="custom-button">Equipos de Seguridad</button></li>
+        <li><a href="{{ route('herramientas') }}" class="custom-button">Herramientas Manuales</a></li>
+        <li><a href="{{ route('materiales') }}" class="custom-button">Materiales Básicos</a></li>
+        <li><a href="{{ route('equipos') }}" class="custom-button">Equipos de Seguridad</a></li>
     </ul>
 </aside>
-
-<!-- Script para abrir y cerrar el aside -->
-<script>
-    var isAsideOpen = false;
-    var navbarHeight = document.querySelector('.navbar').offsetHeight;
-
-    document.getElementById('herramientasAside').style.top = navbarHeight + 'px';
-    document.getElementById('herramientasAside').style.height = `calc(100% - ${navbarHeight}px)`;
-
-    function toggleAside() {
-        isAsideOpen = !isAsideOpen;
-        document.getElementById('herramientasAside').style.display = isAsideOpen ? 'block' : 'none';
-    }
-</script>
 
 <header class="header">
     <div class="container">
@@ -83,26 +67,6 @@
     </div>
 </section>
 
-<section class="product-categories">
-    <div class="container">
-        <h2 class="section-title">Categorías de Productos</h2>
-        <div class="category-grid">
-            <div class="category">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Hand_tools.jpg/1200px-Hand_tools.jpg" alt="Categoría 1" class="category-image">
-                <a href="#" class="category-link">
-                    <span class="category-title">Herramientas</span>
-                </a>
-            </div>
-            <div class="category">
-                <img src="https://st3.depositphotos.com/1001335/14944/i/450/depositphotos_149444160-stock-illustration-materials-for-construction-3d-illustration.jpg" alt="Categoría 2" class="category-image">
-                <a href="{{ route('materiales') }}" class="category-link">
-                    <span class="category-title">Materiales</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="company-info">
     <div class="container">
         <h2 class="section-title">Sobre FERREMAS</h2>
@@ -129,6 +93,6 @@
     </div>
 </footer>
 
-<script src="{{ asset('js/scripts.js') }}"></script>
+<script src="{{ asset('js/inicio.js') }}"></script>
 </body>
 </html>

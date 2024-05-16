@@ -16,6 +16,8 @@ body {
     background-color: #333;
     color: #fff;
     padding: 20px 0;
+    position: relative; /* o absolute, dependiendo de tu diseño */
+    z-index: 20;
 }
 
 .brand {
@@ -240,6 +242,7 @@ body {
     height: 100%;
     overflow: auto;
     background-color: #f8f9fa;
+    z-index: 20;
 }
 
 /* styles.css */
@@ -250,11 +253,9 @@ body {
 }
 
 #herramientasAside ul li {
-    list-style: none;
+    margin-bottom: 0px; /* Reducir el margen inferior */
     padding: 0;
-    margin: 0;
 }
-
 .custom-button {
     background-color: #333333; /* color de fondo del navbar */
     color: white;
@@ -263,12 +264,24 @@ body {
     cursor: pointer;
     width: 100%; /* para llenar todo el espacio del aside */
     box-sizing: border-box; /* para incluir el padding en el ancho total */
+    display: block; /* para hacer que los enlaces se comporten como bloques */
+    text-align: center; /* para centrar el texto */
 }
-
 .custom-button:hover {
     background-color: darkred;
 }
 
 .custom-button:active {
     background-color: maroon;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10; /* Asegúrate de que este valor sea menor que el z-index del navbar y del aside */
+    display: none;
 }
