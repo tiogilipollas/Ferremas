@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\HerramientasController; 
 use App\Http\Controllers\EquiposController; 
+use App\Http\Controllers\HomeController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,5 @@ Route::get('/equipos', [EquiposController::class, 'index'])->name('equipos');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::post('/home', [HomeController::class, 'store'])->name('home.store');
