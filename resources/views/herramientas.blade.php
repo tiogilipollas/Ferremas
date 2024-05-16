@@ -19,16 +19,16 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1 class="header-title">Materiales de construcción</h1>
+                <h1 class="header-title">Herramientas</h1>
             </div>
         </div>
     </header>
 
     <section class="featured-products">
         <div class="container">
-            <h2 class="section-title">Materiales Destacados</h2>
+            <h2 class="section-title">Herramientas Destacadas</h2>
             <div class="product-grid">
-            @foreach ($productos as $producto)
+                @foreach ($productos as $producto)
                     <div class="product">
                         <img src="{{ asset($imagenes[$producto->id_producto]) }}" alt="{{ $producto->nombre }}">
                         <h3 class="product-title">{{ $producto->nombre }}</h3>
