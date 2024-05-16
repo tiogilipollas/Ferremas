@@ -30,6 +30,13 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+        $cliente=new Cliente;
+        $cliente->nombre=$request->input('nombre');
+        $cliente->telefono=$request->input('telefono');
+        $cliente->correo=$request->input('correo');
+        $cliente->save();
+        return redirect()->back();
+        
         //
     }
 

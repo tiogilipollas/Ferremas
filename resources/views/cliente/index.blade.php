@@ -21,7 +21,7 @@
                         <th scope="col">ID</th>
                         <th scope="col">NOMBRE</th>
                         <th scope="col">TELEFONO</th>
-                        <th scope="col">CORREO</th>
+                        <th>CORREO</th>
                     </tr>
                 </thead>
                 <tbody>
