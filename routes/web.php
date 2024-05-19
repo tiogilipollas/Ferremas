@@ -33,5 +33,15 @@ Route::get('/equipos', [EquiposController::class, 'index'])->name('equipos');
 
 Auth::routes();
 
+
+// Ruta que guarda los datos del cliente
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+
 Route::post('/home', [HomeController::class, 'store'])->name('home.store');
+
+
+// Ruta que edita los datos del cliente
+
+Route::put('/home/update/{id_cliente}', [ClienteController::class, 'update'])->name('home.update');
+
+Route::DELETE('/home/destroy/{id_cliente}', [ClienteController::class, 'destroy'])->name('home.destroy');

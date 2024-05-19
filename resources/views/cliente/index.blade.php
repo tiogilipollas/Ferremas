@@ -33,7 +33,17 @@
                         <td> {{ $cliente->nombre }}</td>
                         <td> {{ $cliente->telefono}}</td>
                         <td> {{ $cliente->correo}}</td>
+                        <td>  
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit {{$cliente->id_cliente}}">
+                                Editar
+                            </button>
+
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete {{$cliente->id_cliente}}">
+                                Eliminar
+                            </button>
+                        </td>
                     </tr>
+                    @include('cliente.info')
                     @endforeach
                 </tbody>
             </table>

@@ -51,7 +51,7 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit($id_cliente)
     {
         //
     }
@@ -59,16 +59,25 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request,$id_cliente)    
     {
+        $cliente=Cliente::find($id_cliente);
+        $cliente->nombre=$request->input('nombre');
+        $cliente->telefono=$request->input('telefono');
+        $cliente->correo=$request->input('correo');
+        $cliente->update();
+        return redirect()->back();
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id_cliente)
     {
+        $cliente=Cliente::find($id_cliente);
+        $cliente->delete();
+        return redirect()->back();
         //
     }
 }
