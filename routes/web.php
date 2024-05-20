@@ -23,7 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', [InicioController::class, 'index'])->name('index');
+Route::get('/', [InicioController::class, 'index'])->name('index');
 
 Route::get('/materiales', [ProductoController::class, 'index'])->name('materiales');
 
