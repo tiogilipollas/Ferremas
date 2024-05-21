@@ -16,4 +16,6 @@ class Producto extends Model
     protected $fillable = [
         'precio', 'stock', 'nombre', 'descripcion' 
     ];
+
+    public $timestamps = false;
 }

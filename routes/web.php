@@ -7,7 +7,7 @@ use App\Http\Controllers\InicioController;
 use App\Http\Controllers\HerramientasController; 
 use App\Http\Controllers\EquiposController; 
 use App\Http\Controllers\HomeController; 
-
+use App\Http\Controllers\AgregarProductosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +31,8 @@ Route::get('/herramientas', [HerramientasController::class, 'index'])->name('her
 
 Route::get('/equipos', [EquiposController::class, 'index'])->name('equipos');
 
+
+
 Auth::routes();
 
 
@@ -45,3 +47,6 @@ Route::post('/home', [HomeController::class, 'store'])->name('home.store');
 Route::put('/home/update/{id_cliente}', [ClienteController::class, 'update'])->name('home.update');
 
 Route::DELETE('/home/destroy/{id_cliente}', [ClienteController::class, 'destroy'])->name('home.destroy');
+
+Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos');
+Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');
