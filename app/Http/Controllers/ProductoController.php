@@ -17,18 +17,11 @@ class ProductoController extends Controller
     {
         $productos = DB::table('productos as p')
                     ->join('materialesbasicos as hm', 'p.id_producto', '=', 'hm.id_producto')
-                    ->select('p.id_producto', 'p.nombre', 'p.precio', 'hm.*') 
+                    ->select('p.id_producto', 'p.nombre', 'p.precio','p.imagen','hm.*') 
                     ->get();
 
-        $imagenes = [
-            7 => '/img/cemento.jpg',
-            8 => '/img/arena.webp',
-            9 => '/img/ladrillo.webp',
-            10 => '/img/pintura.jpg',
-            11 => '/img/barnices.jfif',
-            12 => '/img/ceramica.jfif'
-        ];
     
-        return view('materiales', ['productos' => $productos, 'imagenes' => $imagenes]);
+    
+        return view('materiales', ['productos' => $productos]);
     }
 }

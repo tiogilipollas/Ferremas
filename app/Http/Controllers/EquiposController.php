@@ -17,18 +17,9 @@ class EquiposController extends Controller
     {
         $productos = DB::table('productos as p')
                     ->join('equiposseguridad as hm', 'p.id_producto', '=', 'hm.id_producto')
-                    ->select('p.id_producto', 'p.nombre', 'p.precio', 'hm.*') 
+                    ->select('p.id_producto', 'p.nombre', 'p.precio','p.imagen','hm.*') 
                     ->get();
                     
-        $imagenes = [
-            13 => '/img/cascos.jfif',
-            14 => '/img/guantes.jfif',
-            15 => '/img/lentes.webp ',
-            16 => '/img/tornillos_anclajes.jpg',
-            17 => '/img/fijaciones_adhesivos.jpg',
-            18 => '/img/medicion.png'
-        ];
-
-        return view('equipos', ['productos' => $productos, 'imagenes' => $imagenes]);
+       return view('equipos', ['productos' => $productos]);
     }
 }

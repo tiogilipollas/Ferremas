@@ -23,7 +23,12 @@ class AgregarProductosController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'descripcion' => 'required|string|max:255',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+         // Almacenar la imagen en el sistema de archivos de Laravel
+         $nombreImagen = time() . '_' . $request->file('imagen')->getClientOriginalName();
+         $request->file('imagen')->move(public_path('img'), $nombreImagen);
     
         // Obtener el último ID de producto creado
         $ultimoID = Producto::max('ID_producto');
@@ -38,6 +43,7 @@ class AgregarProductosController extends Controller
             'precio' => $request->precio,
             'stock' => $request->stock,
             'descripcion' => $request->descripcion,
+            'imagen' => $nombreImagen,
         ]);
     
         // Verificar si el producto se creó correctamente

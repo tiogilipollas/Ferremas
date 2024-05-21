@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Agregar Productos</h1>
-    <form action="{{ route('agregarproductos') }}" method="POST">
+    <form action="{{ route('agregarproductos') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="nombre">Nombre del Producto:</label><br>
         <input type="text" id="nombre" name="nombre" required><br>
@@ -34,8 +34,14 @@
                 <option value="Accesorios Varios">Accesorios Varios</option>
             </optgroup>
         </select><br>
+        <!-- Otros campos del formulario -->
+        <label for="imagen">Imagen del Producto:</label><br>
+        <input type="file" id="imagen" name="imagen" required><br>
+
         
         <button type="submit">Agregar Producto</button>
     </form>
+
+  
 </body>
 </html>

@@ -26,11 +26,15 @@
 
     <section class="featured-products">
         <div class="container">
-            <h2 class="section-title">Productos Destacados</h2>
+            <h2 class="section-title">Materiales Destacados</h2>
             <div class="product-grid">
             @foreach ($productos as $producto)
                     <div class="product">
-                        <img src="{{ asset($imagenes[$producto->id_producto]) }}" alt="{{ $producto->nombre }}">
+                        @if ($producto->imagen)
+                            <img src="{{ asset('img/' . $producto->imagen) }}" alt="{{ $producto->nombre }}">
+                        @else
+                            <p>Imagen no disponible</p>
+                        @endif
                         <h3 class="product-title">{{ $producto->nombre }}</h3>
                         <p class="product-price">${{ $producto->precio }}</p>
                     </div>

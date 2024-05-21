@@ -16,19 +16,10 @@ class HerramientasController extends Controller
     public function index()
     {
         $productos = DB::table('productos as p')
-                    ->join('herramientasmanuales as hm', 'p.id_producto', '=', 'hm.id_producto')
-                    ->select('p.id_producto', 'p.nombre', 'p.precio', 'hm.*') 
-                    ->get();
-                    
-        $imagenes = [
-            1 => '/img/martillo.jpg',
-            2 => '/img/destornillador.jpg',
-            3 => '/img/llave.jpg',
-            4 => '/img/taladro.jpg',
-            5 => '/img/sierra.jpg',
-            6 => '/img/lijadora.jpg'
-        ];
+            ->join('herramientasmanuales as hm', 'p.id_producto', '=', 'hm.id_producto')
+            ->select('p.id_producto', 'p.nombre', 'p.precio', 'p.stock', 'p.descripcion', 'p.imagen') 
+            ->get();
 
-        return view('herramientas', ['productos' => $productos, 'imagenes' => $imagenes]);
+        return view('herramientas', ['productos' => $productos]);
     }
 }
