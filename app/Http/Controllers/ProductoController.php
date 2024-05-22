@@ -16,9 +16,10 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = DB::table('productos as p')
-                    ->join('materialesbasicos as hm', 'p.id_producto', '=', 'hm.id_producto')
-                    ->select('p.id_producto', 'p.nombre', 'p.precio','p.imagen','hm.*') 
-                    ->get();
+        ->join('tipo_producto as tp', 'p.ID_tipo', '=', 'tp.ID_tipo')
+        ->whereIn('p.ID_tipo', [3, 4])
+        ->select('p.ID_producto', 'p.nombre', 'p.precio', 'p.stock', 'tp.descripcion as tipo_producto', 'p.imagen')
+        ->get();
 
     
     

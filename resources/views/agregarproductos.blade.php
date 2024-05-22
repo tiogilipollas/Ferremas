@@ -3,45 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Productos</title>
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Agregar Productos</h1>
-    <form action="{{ route('agregarproductos') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <label for="nombre">Nombre del Producto:</label><br>
-        <input type="text" id="nombre" name="nombre" required><br>
-        
-        <label for="precio">Precio:</label><br>
-        <input type="number" id="precio" name="precio" required><br>
-        
-        <label for="stock">Stock:</label><br>
-        <input type="number" id="stock" name="stock" required><br>
-        
-        <label for="descripcion">Categoria:</label><br>
-        <select id="descripcion" name="descripcion" required>
-            <option value="">Selecciona una categoría</option>
-            <optgroup label="Herramientas Manuales">
-                <option value="Herramientas Manuales">Herramientas Manuales</option>
-                <option value="Herramientas Eléctricas">Herramientas Eléctricas</option>
-            </optgroup>
-            <optgroup label="Materiales Básicos">
-                <option value="Materiales Básicos">Materiales Básicos</option>
-                <option value="Acabados">Acabados</option>
-            </optgroup>
-            <optgroup label="Equipos de Seguridad">
-                <option value="Equipos de Seguridad">Equipos de Seguridad</option>
-                <option value="Accesorios Varios">Accesorios Varios</option>
-            </optgroup>
-        </select><br>
-        <!-- Otros campos del formulario -->
-        <label for="imagen">Imagen del Producto:</label><br>
-        <input type="file" id="imagen" name="imagen" required><br>
+    <div class="container">
+        <h1 class="mt-5 mb-3">Agregar Producto</h1>
 
-        
-        <button type="submit">Agregar Producto</button>
-    </form>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-  
-</body>
-</html>
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+        <form action="{{ route('agregarproductos.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="form-group">
+                <label for="ID_producto">ID Producto</label>
+                <input type="number" name="ID_producto" id="ID_producto" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="number" name="precio" id="precio" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" name="stock" id="stock" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ID_tipo">Tipo de Producto</label>
+                <select name="ID_tipo" id="ID_tipo" class="form-control" required>
+                    @foreach($tiposProductos as $ID_tipo => $descripcion)
+                        <option value="{{ $ID_tipo }}">{{ $descripcion }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="imagen">Imagen</label>
+                <input type="file" name="imagen" id="imagen" class="form-control-file" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Agregar Producto</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap

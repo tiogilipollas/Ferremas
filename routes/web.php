@@ -48,5 +48,5 @@ Route::put('/home/update/{id_cliente}', [ClienteController::class, 'update'])->n
 
 Route::DELETE('/home/destroy/{id_cliente}', [ClienteController::class, 'destroy'])->name('home.destroy');
 
-Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos');
 Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');
+Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos.store');
