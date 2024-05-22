@@ -40,11 +40,11 @@ class HomeController extends Controller
         $cliente = new Cliente;
         $cliente->nombre = $request->nombre;
         $cliente->telefono = $request->telefono;
-        $cliente->correo = $request->correo;
+        $cliente->correo_electronico = $request->correo_electronico;
         // ... asigna los demás campos ...
-    
+
         $cliente->save();
-    
+
         return redirect('/home');
     }
 

@@ -37,12 +37,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="correo" class="form-label">CORREO</label>
+                        <label for="correo_electronico" class="form-label">CORREO</label>
                         <input
                             type="email"
                             class="form-control"
-                            name="correo"
-                            id="correo"
+                            name="correo_electronico"
+                            id="correo_electronico"
                             aria-describedby="helpId"
                             placeholder=""
                         />
