@@ -33,10 +33,10 @@ class ClienteController extends Controller
         $cliente=new Cliente;
         $cliente->nombre=$request->input('nombre');
         $cliente->telefono=$request->input('telefono');
-        $cliente->correo=$request->input('correo');
+        $cliente->correo_electronico=$request->input('correo_electronico');
         $cliente->save();
         return redirect()->back();
-        
+
         //
     }
 
@@ -59,12 +59,12 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id_cliente)    
+    public function update(Request $request,$id_cliente)
     {
         $cliente=Cliente::find($id_cliente);
         $cliente->nombre=$request->input('nombre');
         $cliente->telefono=$request->input('telefono');
-        $cliente->correo=$request->input('correo');
+        $cliente->correo_electronico=$request->input('correo_electronico');
         $cliente->update();
         return redirect()->back();
         //

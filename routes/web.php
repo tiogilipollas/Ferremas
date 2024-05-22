@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\InicioController;
-use App\Http\Controllers\HerramientasController; 
-use App\Http\Controllers\EquiposController; 
-use App\Http\Controllers\HomeController; 
+use App\Http\Controllers\HerramientasController;
+use App\Http\Controllers\EquiposController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AgregarProductosController;
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +47,8 @@ Route::post('/home', [HomeController::class, 'store'])->name('home.store');
 Route::put('/home/update/{id_cliente}', [ClienteController::class, 'update'])->name('home.update');
 
 Route::DELETE('/home/destroy/{id_cliente}', [ClienteController::class, 'destroy'])->name('home.destroy');
+
+// Ruta que agrega los productos
 
 Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos');
 Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');

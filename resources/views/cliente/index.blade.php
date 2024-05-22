@@ -26,14 +26,14 @@
                 </thead>
                 <tbody>
                     @foreach ($cliente as $cliente)
-                        
-                    
+
+
                     <tr class="">
                         <td scope="row"> {{$cliente->id_cliente}}</td>
                         <td> {{ $cliente->nombre }}</td>
                         <td> {{ $cliente->telefono}}</td>
-                        <td> {{ $cliente->correo}}</td>
-                        <td>  
+                        <td> {{ $cliente->correo_electronico}}</td>
+                        <td>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit {{$cliente->id_cliente}}">
                                 Editar
                             </button>
@@ -50,7 +50,7 @@
         </div>
 
         @include('cliente.create')
-        
+
     </div>
     <div class="col-md-2"></div>
 </div>

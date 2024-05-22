@@ -14,7 +14,7 @@
             <form action="{{ route('home.update', ['id_cliente' => $cliente->id_cliente]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">NOMBRE</label>
@@ -43,15 +43,15 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="correo" class="form-label">CORREO</label>
+                        <label for="correo_electronico" class="form-label">CORREO</label>
                         <input
                             type="email"
                             class="form-control"
-                            name="correo"
-                            id="correo"
+                            name="correo_electronico"
+                            id="correo_electronico"
                             aria-describedby="helpId"
                             placeholder=""
-                            value="{{$cliente->correo}}"
+                            value="{{$cliente->correo_electronico}}"
                         />
                     </div>
                 </div>
