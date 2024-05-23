@@ -12,26 +12,33 @@
 </head>
 <body>
 <div class="overlay"></div>
-<nav class="navbar">
-    <div class="container d-flex justify-content-between">
-        <div class="d-flex align-items-center">
-            <span class="brand">FERREMAS</span>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">FERREMAS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+                </li>
+            </ul>
             <button type="button" class="btn btn-primary ml-2" id="toggleAsideButton">Herramientas</button>
         </div>
-        <ul class="nav-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
-        </ul>
     </div>
 </nav>
 
 
 <aside id="herramientasAside">
-    <h5>Herramientas</h5>
+    <h5 class="mt-3">Herramientas</h5>
     <ul>
-        <li><a href="{{ route('herramientas') }}" class="custom-button">Herramientas Manuales</a></li>
-        <li><a href="{{ route('materiales') }}" class="custom-button">Materiales Básicos</a></li>
-        <li><a href="{{ route('equipos') }}" class="custom-button">Equipos de Seguridad</a></li>
+        <li><a href="{{ route('herramientas') }}" class="btn btn-primary btn-block mt-2">Herramientas Manuales</a></li>
+        <li><a href="{{ route('materiales') }}" class="btn btn-primary btn-block mt-2">Materiales Básicos</a></li>
+        <li><a href="{{ route('equipos') }}" class="btn btn-primary btn-block mt-2">Equipos de Seguridad</a></li>
     </ul>
 </aside>
 
@@ -47,21 +54,27 @@
 <section class="featured-products">
     <div class="container">
         <h2 class="section-title">Productos Destacados</h2>
-        <div class="product-grid">
-            <div class="product">
-                <img src="https://dojiw2m9tvv09.cloudfront.net/90227/product/aguarras-medio-litro3423.jpg" alt="Producto 1">
-                <h3 class="product-title">Aguarras</h3>
-                <p class="product-price">$3000</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="product">
+                    <img src="https://dojiw2m9tvv09.cloudfront.net/90227/product/aguarras-medio-litro3423.jpg" alt="Producto 1" class="img-fluid">
+                    <h3 class="product-title">Aguarras</h3>
+                    <p class="product-price">$3000</p>
+                </div>
             </div>
-            <div class="product">
-                <img src="https://www.uyustools.cl/wp-content/uploads/2017/01/MAT16YX_1.jpg" alt="Producto 2">
-                <h3 class="product-title">Martillo</h3>
-                <p class="product-price">$5000</p>
+            <div class="col-md-4">
+                <div class="product">
+                    <img src="https://www.uyustools.cl/wp-content/uploads/2017/01/MAT16YX_1.jpg" alt="Producto 2" class="img-fluid">
+                    <h3 class="product-title">Martillo</h3>
+                    <p class="product-price">$5000</p>
+                </div>
             </div>
-            <div class="product">
-                <img src="https://motosierraselbosque.cl/wp-content/uploads/2020/07/967-1569-78-1-scaled.jpg" alt="Producto 3">
-                <h3 class="product-title">Motosierra</h3>
-                <p class="product-price">$30000</p>
+            <div class="col-md-4">
+                <div class="product">
+                    <img src="https://motosierraselbosque.cl/wp-content/uploads/2020/07/967-1569-78-1-scaled.jpg" alt="Producto 3" class="img-fluid">
+                    <h3 class="product-title">Motosierra</h3>
+                    <p class="product-price">$30000</p>
+                </div>
             </div>
         </div>
     </div>
