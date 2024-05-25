@@ -8,11 +8,20 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <br><br>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+
         <h3> Lista de clientes</h3>
+        <div class="position-absolute" style="top: 120px; right: 350px;">
+            <a href="{{ route('inicio') }}" class="btn btn-outline-danger">Volver</a>
+        </div>
         <br>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create">
             Nuevo
         </button>
+        
         <div class="table-responsive">
             <nr>
             <table class="table">

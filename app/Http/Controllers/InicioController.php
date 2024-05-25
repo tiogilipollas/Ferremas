@@ -9,9 +9,14 @@ class InicioController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function inicio()
     {
 
+        return view('inicio');
+    }
+
+    public function index()
+    {
         return view('inicio');
     }
 }

@@ -19,6 +19,7 @@
     </head>
 
     <body>
+
         @yield('content')
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -38,3 +39,7 @@
         
     </body>
 </html>
+
+
+
+

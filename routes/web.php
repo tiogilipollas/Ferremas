@@ -9,6 +9,7 @@ use App\Http\Controllers\EquiposController;
 use App\Http\Controllers\HomeController; 
 use App\Http\Controllers\AgregarProductosController;
 use App\Http\Controllers\MaterialesController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +32,10 @@ Route::get('/materiales', [MaterialesController::class, 'index'])->name('materia
 Route::get('/herramientas', [HerramientasController::class, 'index'])->name('herramientas');
 
 Route::get('/equipos', [EquiposController::class, 'index'])->name('equipos');
+
+Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
