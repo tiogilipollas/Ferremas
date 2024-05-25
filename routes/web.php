@@ -66,3 +66,9 @@ Route::prefix('gestionproductos')->group(function () {
     Route::put('/{id}', [ProductoController::class, 'update'])->name('productos.update');
     Route::delete('/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
 });
+
+
+Route::get('/administracionproductos', [ProductoController::class, 'listaadmin'])->name('administracionproductos.listaadmin');
+Route::delete('/administracionproductos/{id}', [ProductoController::class, 'destroyadmin'])->name('administracionproductos.destroy');
+Route::get('/administracionproductos/{id}/edit', [ProductoController::class, 'editadmin'])->name('administracionproductos.editadmin');
+Route::put('/administracionproductos/{id}', [ProductoController::class, 'updateadmin'])->name('administracionproductos.updateadmin');

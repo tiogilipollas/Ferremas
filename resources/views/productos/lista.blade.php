@@ -18,10 +18,9 @@
                         <strong>Stock:</strong> {{ $producto->stock }}
                     </div>
                 </td>
-                <td>{{ $producto->tipoProducto->descripcion }}</td> <!-- Aquí se muestra la descripción en lugar del ID -->
+                <td>{{ $producto->tipoProducto->descripcion }}</td>
                 <td>
                     <a href="{{ route('productos.edit', $producto->ID_producto) }}" class="btn btn-primary btn-sm">Editar</a>
-                    <!-- Si deseas agregar un botón de eliminar, puedes hacerlo aquí -->
                 </td>
             </tr>
             @endforeach

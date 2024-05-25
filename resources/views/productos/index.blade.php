@@ -18,7 +18,6 @@
     </form>
 
     <div id="productos-container" class="row">
-        <!-- Aquí se incluirá la lista de productos -->
         @include('productos.lista', ['productos' => $productos])
     </div>
 </div>

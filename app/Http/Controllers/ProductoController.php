@@ -9,48 +9,27 @@ use Illuminate\Support\Facades\DB;
 
 class ProductoController extends Controller
 {
-    /**
-     * Muestra los productos destacados.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Muestra la lista de todos los productos.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function listar(Request $request)
-{
-    $categoria = $request->input('categoria');
+    {
+        $categoria = $request->input('categoria');
 
-    // Si se selecciona una categoría, filtramos los productos por esa categoría
-    if ($categoria) {
-        $categorias = [
-            'herramientas' => [1, 2],
-            'materiales' => [3, 4],
-            'equipos' => [5, 6],
-        ];
+        if ($categoria) {
+            $categorias = [
+                'herramientas' => [1, 2],
+                'materiales' => [3, 4],
+                'equipos' => [5, 6],
+            ];
 
-        $tipoIds = $categorias[$categoria] ?? [];
+            $tipoIds = $categorias[$categoria] ?? [];
 
-        $productos = Producto::whereIn('ID_tipo', $tipoIds)->get();
-    } else {
-        // Si no se selecciona ninguna categoría, mostramos todos los productos
-        $productos = Producto::all();
+            $productos = Producto::whereIn('ID_tipo', $tipoIds)->get();
+        } else {
+            $productos = Producto::all();
+        }
+
+        return view('productos.index', compact('productos', 'categoria'));
     }
 
-    return view('productos.index', compact('productos', 'categoria'));
-}
-
-
-
-    /**
-     * Muestra el formulario para editar un producto existente.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $producto = Producto::find($id);
@@ -58,35 +37,77 @@ class ProductoController extends Controller
         return view('productos.edit', compact('producto', 'tipos'));
     }
 
-    /**
-     * Actualiza un producto existente.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $producto = Producto::find($id);
         $producto->nombre = $request->nombre;
         $producto->precio = $request->precio;
         $producto->stock = $request->stock;
-        $producto->ID_tipo = $request->ID_tipo; // Aquí se asigna el valor del campo ID_tipo del formulario
+        $producto->ID_tipo = $request->ID_tipo;
         $producto->save();
         return redirect()->route('productos.listar');
     }
-    
 
-    /**
-     * Elimina un producto existente.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $producto = Producto::find($id);
         $producto->delete();
         return redirect()->route('productos.listar');
     }
+
+
+    public function listaadmin(Request $request)
+    {
+        $categoria = $request->input('categoria');
+
+        // Si se selecciona una categoría, filtramos los productos por esa categoría
+        if ($categoria) {
+            $categorias = [
+                'herramientas' => [1, 2],
+                'materiales' => [3, 4],
+                'equipos' => [5, 6],
+            ];
+
+            $tipoIds = $categorias[$categoria] ?? [];
+
+            $productos = Producto::whereIn('ID_tipo', $tipoIds)->get();
+        } else {
+            // Si no se selecciona ninguna categoría, mostramos todos los productos
+            $productos = Producto::all();
+        }
+
+        return view('productos.adminindex', compact('productos', 'categoria'));
+    }
+
+        public function editadmin($id)
+        {
+            $producto = Producto::find($id);
+            $tipos = TipoProducto::all();
+            return view('productos.editadmin', compact('producto', 'tipos'));
+        }
+
+        public function updateadmin(Request $request, $id)
+        {
+            $producto = Producto::find($id);
+            $producto->nombre = $request->nombre;
+            $producto->precio = $request->precio;
+            $producto->stock = $request->stock;
+            $producto->ID_tipo = $request->ID_tipo; 
+            $producto->save();
+            return redirect()->route('administracionproductos.listaadmin');
+        }
+
+        public function destroyadmin($id)
+        {
+ 
+            DB::table('detallepedidos')->where('id_producto', $id)->delete();
+            
+
+            DB::table('detalleproveedor')->where('ID_producto', $id)->delete();
+
+            $producto = Producto::find($id);
+            $producto->delete();
+
+            return redirect()->route('administracionproductos.listaadmin');
+        }
 }
