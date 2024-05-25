@@ -16,9 +16,11 @@ class EquiposController extends Controller
     public function index()
     {
         $productos = DB::table('productos as p')
-                    ->join('equiposseguridad as hm', 'p.id_producto', '=', 'hm.id_producto')
-                    ->select('p.id_producto', 'p.nombre', 'p.precio','p.imagen','hm.*') 
-                    ->get();
+        ->join('tipo_producto as tp', 'p.ID_tipo', '=', 'tp.ID_tipo')
+        ->whereIn('p.ID_tipo', [5, 6])
+        ->select('p.ID_producto', 'p.nombre', 'p.precio', 'p.stock', 'tp.descripcion as tipo_producto', 'p.imagen')
+        ->get();
+
                     
        return view('equipos', ['productos' => $productos]);
     }

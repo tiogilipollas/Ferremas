@@ -3,73 +3,51 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
-use App\Models\HerramientasManuales;
-use App\Models\MaterialesBasicos;
-use App\Models\EquiposSeguridad;
+use Illuminate\Support\Facades\DB;
 
 class AgregarProductosController extends Controller
 {
     public function create()
     {
-        return view('agregarproductos');
+        // Obtener todas las descripciones de tipo de producto desde la base de datos
+        $tiposProductos = DB::table('Tipo_producto')->pluck('descripcion', 'ID_tipo');
+
+        return view('agregarproductos', compact('tiposProductos'));
     }
 
     public function store(Request $request)
     {
-        // Validar y crear el producto en la tabla Productos
+        // Validar los datos del formulario
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'ID_producto' => 'required|integer',
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
-            'descripcion' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'ID_tipo' => 'required|integer',
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-         // Almacenar la imagen en el sistema de archivos de Laravel
-         $nombreImagen = time() . '_' . $request->file('imagen')->getClientOriginalName();
-         $request->file('imagen')->move(public_path('img'), $nombreImagen);
-    
-        // Obtener el último ID de producto creado
-        $ultimoID = Producto::max('ID_producto');
-    
-        // Asegurar que la ID del próximo producto comience desde 19
-        $proximoID = max(19, $ultimoID + 1);
-    
-        // Crear el producto
-        $producto = Producto::create([
-            'ID_producto' => $proximoID,
-            'nombre' => $request->nombre,
+        // Verificar si el ID del producto ya existe en la base de datos
+        if (DB::table('Productos')->where('ID_producto', $request->ID_producto)->exists()) {
+            // Si el ID del producto ya existe, mostrar un mensaje de error y redirigir de vuelta al formulario
+            return back()->withInput()->with('error', 'La ID del producto ya existe en la base de datos');
+        }
+
+        // Almacenar la imagen en el sistema de archivos de Laravel
+        $nombreImagen = time() . '_' . $request->file('imagen')->getClientOriginalName();
+        $request->file('imagen')->move(public_path('img'), $nombreImagen);
+
+        // Insertar el producto en la base de datos
+        DB::table('Productos')->insert([
+            'ID_producto' => $request->ID_producto,
             'precio' => $request->precio,
             'stock' => $request->stock,
-            'descripcion' => $request->descripcion,
+            'nombre' => $request->nombre,
+            'ID_tipo' => $request->ID_tipo,
             'imagen' => $nombreImagen,
         ]);
-    
-        // Verificar si el producto se creó correctamente
-        if ($producto) {
-            // Insertar en la tabla correspondiente según la descripción
-            switch ($producto->descripcion) {
-                case 'Herramientas Manuales':
-                case 'Herramientas Eléctricas':
-                    HerramientasManuales::create(['ID_producto' => $proximoID]);
-                    break;
-                case 'Materiales Básicos':
-                case 'Acabados':
-                    MaterialesBasicos::create(['ID_producto' => $proximoID]);
-                    break;
-                case 'Equipos de Seguridad':
-                case 'Accesorios Varios':
-                    EquiposSeguridad::create(['ID_producto' => $proximoID]);
-                    break;
-                default:
-                    // Manejar otro caso o error si la descripción no coincide
-                    break;
-            }
-    
-            return redirect()->route('agregarproductos.create')->with('success', 'Producto agregado exitosamente');
-        } else {
-            return back()->withInput()->with('error', 'No se pudo agregar el producto');
-        }
+
+        // Redirigir al usuario a donde desees después de la inserción
+        return redirect()->route('agregarproductos.create')->with('success', 'Producto agregado exitosamente');
     }
 }

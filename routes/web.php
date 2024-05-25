@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\InicioController;
-use App\Http\Controllers\HerramientasController;
-use App\Http\Controllers\EquiposController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HerramientasController; 
+use App\Http\Controllers\EquiposController; 
+use App\Http\Controllers\HomeController; 
 use App\Http\Controllers\AgregarProductosController;
+use App\Http\Controllers\MaterialesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,7 @@ Route::get('/', function () {
 
 Route::get('/', [InicioController::class, 'index'])->name('index');
 
-Route::get('/materiales', [ProductoController::class, 'index'])->name('materiales');
+Route::get('/materiales', [MaterialesController::class, 'index'])->name('materiales');
 
 Route::get('/herramientas', [HerramientasController::class, 'index'])->name('herramientas');
 
@@ -48,7 +49,15 @@ Route::put('/home/update/{id_cliente}', [ClienteController::class, 'update'])->n
 
 Route::DELETE('/home/destroy/{id_cliente}', [ClienteController::class, 'destroy'])->name('home.destroy');
 
-// Ruta que agrega los productos
 
-Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos');
 Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');
+Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos.store');
+
+Route::prefix('gestionproductos')->group(function () {
+    Route::get('/{categoria?}', [ProductoController::class, 'listar'])->name('productos.listar');
+    Route::get('/create', [ProductoController::class, 'create'])->name('productos.create');
+    Route::post('/', [ProductoController::class, 'store'])->name('productos.store');
+    Route::get('/{id}/edit', [ProductoController::class, 'edit'])->name('productos.edit');
+    Route::put('/{id}', [ProductoController::class, 'update'])->name('productos.update');
+    Route::delete('/{id}', [ProductoController::class, 'destroy'])->name('productos.destroy');
+});
