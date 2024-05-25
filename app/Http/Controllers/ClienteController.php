@@ -32,6 +32,8 @@ class ClienteController extends Controller
     {
         $cliente=new Cliente;
         $cliente->nombre=$request->input('nombre');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->direccion = $request->input('direccion');
         $cliente->telefono=$request->input('telefono');
         $cliente->correo_electronico=$request->input('correo_electronico');
         $cliente->save();
@@ -63,6 +65,8 @@ class ClienteController extends Controller
     {
         $cliente=Cliente::find($id_cliente);
         $cliente->nombre=$request->input('nombre');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->direccion = $request->input('direccion');
         $cliente->telefono=$request->input('telefono');
         $cliente->correo_electronico=$request->input('correo_electronico');
         $cliente->update();

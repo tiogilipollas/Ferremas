@@ -20,6 +20,8 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">NOMBRE</th>
+                        <th scope="col">APELLIDO</th>
+                        <th scope="col">DIRECCIÓN</th>
                         <th scope="col">TELEFONO</th>
                         <th>CORREO</th>
                     </tr>
@@ -31,8 +33,10 @@
                     <tr class="">
                         <td scope="row"> {{$cliente->id_cliente}}</td>
                         <td> {{ $cliente->nombre }}</td>
-                        <td> {{ $cliente->telefono}}</td>
-                        <td> {{ $cliente->correo_electronico}}</td>
+                        <td> {{ $cliente->apellido }}</td>
+                        <td> {{ $cliente->direccion }}</td>
+                        <td> {{ $cliente->telefono }}</td>
+                        <td> {{ $cliente->correo_electronico }}</td>
                         <td>
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit {{$cliente->id_cliente}}">
                                 Editar

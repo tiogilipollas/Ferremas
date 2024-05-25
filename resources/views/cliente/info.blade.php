@@ -30,6 +30,33 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="apellido" class="form-label">APELLIDO</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="apellido"
+                            id="apellido"
+                            aria-describedby="helpId"
+                            placeholder=""
+                            value="{{ $cliente->apellido }}"
+                        />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">DIRECCIÓN</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="direccion"
+                            id="direccion"
+                            aria-describedby="helpId"
+                            placeholder=""
+                            value="{{ $cliente->direccion }}"
+                        />
+                    </div>
+
+
+                    <div class="mb-3">
                         <label for="telefono" class="form-label">TELEFONO</label>
                         <input
                             type="text"

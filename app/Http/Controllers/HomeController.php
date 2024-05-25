@@ -39,6 +39,8 @@ class HomeController extends Controller
     {
         $cliente = new Cliente;
         $cliente->nombre = $request->nombre;
+        $cliente->apellido = $request->apellido;
+        $cliente->direccion = $request->direccion;
         $cliente->telefono = $request->telefono;
         $cliente->correo_electronico = $request->correo_electronico;
         // ... asigna los demás campos ...
