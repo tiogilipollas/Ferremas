@@ -31,10 +31,11 @@
                         <div class="card-body p-md-5 mx-md-4">
           
                           <div class="text-center">
-                            <img src=" {{asset ('img/logo_ferremas.png')}}"
-                              style="width: 185px;" alt="logo">
+                            <a href="{{ url('/inicio') }}">
+                                <img src="{{ asset('img/logo_ferremas.png') }}" style="width: 185px;" alt="logo">
+                            </a>
                             <h4 class="mt-1 mb-5 pb-1">Bienvenido a Ferremas</h4>
-                          </div>
+                        </div>
           
                           <form action="{{route('login')}}" method="post">
                             @csrf

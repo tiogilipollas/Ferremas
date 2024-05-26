@@ -10,6 +10,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AgregarProductosController;
 use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +40,11 @@ Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [RegisterController::class, 'register']);
+
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
 
 
 Auth::routes();

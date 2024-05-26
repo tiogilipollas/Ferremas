@@ -12,9 +12,15 @@
 </head>
 <body>
 <div class="overlay"></div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">FERREMAS</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+
+        <div class="text-center">
+            <a href="{{ url('/inicio') }}">
+                <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
+            </a>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
