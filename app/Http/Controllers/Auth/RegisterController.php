@@ -25,9 +25,9 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     protected function registered(Request $request, $user)
-    {
-        return redirect()->route('login');
-    }
+{
+    return redirect()->route('login');
+}
 
     /**
      * Where to redirect users after registration.
@@ -60,6 +60,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+
+    
 
     /**
      * Create a new user instance after a valid registration.
