@@ -285,3 +285,56 @@ body {
     z-index: 10; /* Asegúrate de que este valor sea menor que el z-index del navbar y del aside */
     display: none;
 }
+
+.navbar {
+    z-index: 1000; /* Asegúrate de que el z-index del navbar sea menor que el del panel lateral */
+}
+
+
+.cart-panel.show {
+    transform: translateX(0);
+}
+
+
+#cart-items-container {
+    flex: 1;
+    overflow: auto;
+}
+
+#cart-total {
+    flex-shrink: 0;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500; /* Asegúrate de que el z-index del overlay sea mayor que el navbar */
+}
+
+.cart-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    overflow: auto;
+    background: #f8f9fa;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 2000; /* Asegúrate de que el z-index del panel lateral sea mayor que el del navbar */
+}
+
+.cart-panel.show {
+    transform: translateX(0);
+}
+
+/* Deshabilitar el desplazamiento del cuerpo */
+body.no-scroll {
+    overflow: hidden;
+}
+

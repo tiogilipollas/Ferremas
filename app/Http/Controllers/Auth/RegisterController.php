@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -24,9 +25,12 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
+    protected $redirectTo = RouteServiceProvider::HOME;
+
     protected function registered(Request $request, $user)
 {
-    return redirect()->route('login');
+        $this->guard()->logout();
+        return redirect()->route('login');
 }
 
     /**
@@ -34,7 +38,6 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.

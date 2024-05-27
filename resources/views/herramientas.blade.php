@@ -14,31 +14,49 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <div class="text-center">
-                <a href="{{ url('/inicio') }}">
-                    <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
-                </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
-                    </li>
-                </ul>
-            </div>
+<div id="overlay"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <div class="text-center">
+            <a href="{{ url('/inicio') }}">
+                <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
+            </a>
         </div>
-    </nav>
-    <header class="header">
-        <div class="container">
-            <div class="header-content text-center">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('index') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <button type="button" id="cart-button" class="btn btn-success">Ver carrito</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<aside id="cart" class="cart-panel">
+    <h2>Mi carro</h2>
+    <div id="cart-items">
+        <!-- Los ítems del carrito van aquí -->
+    </div>
+    <div id="cart-total">
+        <!-- El total va aquí -->
+    </div>
+    <div id="cart-product-total">
+        <!-- El total de productos va aquí -->
+    </div>
+</aside>
+
+
+<header class="header">
+    <div class="container">
+        <div class="header-content text-center">
                 <h1 class="header-title">Herramientas</h1>
             </div>
         </div>
@@ -61,8 +79,7 @@
                             <p class="card-text">Precio: ${{ $producto->precio }}</p>
                             <p class="card-text">Stock: {{ $producto->stock }}</p>
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <button type="button" class="btn btn-success">Agregar al carrito</button>
-                                <button type="button" class="btn btn-primary">Comprar</button>
+                            <button type="button" class="btn btn-success add-to-cart" data-name="{{ $producto->nombre }}" data-price="{{ $producto->precio }}" data-img="{{ asset('img/' . $producto->imagen) }}">Agregar al carrito</button>
                             </div>
                         </div>
                     </div>
@@ -96,9 +113,9 @@
             </div>
         </div>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/carrito.js') }}"></script>
 </body>
 </html>
