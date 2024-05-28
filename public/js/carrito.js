@@ -145,6 +145,6 @@ $('#overlay').on('click', function () {
     var body = $('body');
 
     cartPanel.removeClass('show');
-    overlay.hide();
+    overlay.hide(); 
     body.removeClass('no-scroll');
 });

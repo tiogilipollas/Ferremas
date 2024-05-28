@@ -34,10 +34,28 @@
                 </li>
             </ul>
             <button type="button" class="btn btn-primary ml-2" id="toggleAsideButton">Herramientas</button>
+            <li class="nav-item">
+                        <button type="button" id="cart-button" class="btn btn-success">Ver carrito</button>
+                    </li>
         </div>
     </div>
 </nav>
 
+<aside id="cart" class="cart-panel">
+    <div id="cart-header">
+        <h2>Mi carro</h2>
+        <p id="cart-count">0 productos</p>
+    </div>
+    <div id="cart-items-container">
+        <div id="cart-items">
+        </div>
+    </div>
+    <div id="cart-footer">
+        <p id="cart-total">Total: $0</p>
+        <button type="button" id="buy-now" class="btn btn-success">Comprar ahora</button>
+        <button type="button" id="go-to-cart" class="btn btn-secondary">Ir al carro de compras</button>
+    </div>
+</aside>
 
 <aside id="herramientasAside">
     <h5 class="mt-3">Herramientas</h5>
@@ -111,7 +129,9 @@
         </div>
     </div>
 </footer>
-
+<script src="{{ asset('js/carrito.js') }}"></script>
 <script src="{{ asset('js/inicio.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
