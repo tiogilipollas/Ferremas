@@ -1,5 +1,27 @@
 var cart = [];
 
+$(document).ready(function() {
+    loadCart();
+    renderCartItems();
+    updateTotal();
+    updateCartCount(); // Llamada inicial para contar los productos
+});
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function loadCart() {
+    var storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        cart = JSON.parse(storedCart);
+    }
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(amount);
+}
+
 function updateTotal() {
     var total = 0;
     var totalProducts = 0;
@@ -7,11 +29,38 @@ function updateTotal() {
         total += Number(product.price) * product.quantity;
         totalProducts += product.quantity;
     });
-    $('#cart-total').text('Total: $' + total);
+    $('#cart-total').text('Total: ' + formatCurrency(total));
     $('#cart-product-total').text('Productos: ' + totalProducts);
 }
 
-// Añade un producto al carrito y muestra el carrito
+function updateCartCount() {
+    var totalProducts = 0;
+    $.each(cart, function(index, product) {
+        totalProducts += product.quantity;
+    });
+    $('#cart-count').text(totalProducts + ' productos');
+}
+
+function renderCartItems() {
+    $('#cart-items').empty();
+
+    $.each(cart, function(index, product) {
+        var productTotal = Number(product.price) * product.quantity;
+        $('#cart-items').append(`
+            <div class="cart-item">
+                <img src="${product.img}" width="50" height="50">
+                <p>${product.name}: ${formatCurrency(productTotal)}</p>
+                <div class="quantity-control">
+                    <button class="decrease-quantity" data-index="${index}">-</button>
+                    <span class="quantity">${product.quantity}</span>
+                    <button class="increase-quantity" data-index="${index}">+</button>
+                </div>
+                <button class="remove-from-cart" data-index="${index}">Eliminar</button>
+            </div>
+        `);
+    });
+}
+
 $('.add-to-cart').click(function() {
     var name = $(this).data('name');
     var price = Number($(this).data('price'));
@@ -28,60 +77,49 @@ $('.add-to-cart').click(function() {
         cart.push(product);
     }
 
-    $('#cart-items').empty();
-
-    $.each(cart, function(index, product) {
-        $('#cart-items').append(`
-            <div class="cart-item">
-                <img src="${product.img}" width="50" height="50">
-                <p>${product.name}: $${product.price}</p>
-                <div class="quantity-control">
-                    <button class="decrease-quantity" data-index="${index}">-</button>
-                    <span class="quantity">${product.quantity}</span>
-                    <button class="increase-quantity" data-index="${index}">+</button>
-                </div>
-                <button class="remove-from-cart" data-index="${index}">Eliminar</button>
-            </div>
-        `);
-    });
-
+    renderCartItems();
     updateTotal();
+    updateCartCount(); // Actualizar el contador de productos
+    saveCart();
 
-    // Muestra el carrito
     $('.cart-panel').addClass('show');
     $('#overlay').show();
     $('body').addClass('no-scroll');
 });
 
-// Disminuye la cantidad de un producto en el carrito
 $('#cart-items').on('click', '.decrease-quantity', function() {
     var index = $(this).data('index');
     var product = cart[index];
 
     if (product.quantity > 1) {
         product.quantity -= 1;
-        $(this).siblings('.quantity').text(product.quantity);
+        renderCartItems();
         updateTotal();
+        updateCartCount(); // Actualizar el contador de productos
+        saveCart();
     }
 });
 
-// Aumenta la cantidad de un producto en el carrito
 $('#cart-items').on('click', '.increase-quantity', function() {
     var index = $(this).data('index');
     var product = cart[index];
 
     product.quantity += 1;
-    $(this).siblings('.quantity').text(product.quantity);
+    renderCartItems();
     updateTotal();
+    updateCartCount(); // Actualizar el contador de productos
+    saveCart();
 });
 
-// Elimina un producto del carrito
 $('#cart-items').on('click', '.remove-from-cart', function() {
     var index = $(this).data('index');
     cart.splice(index, 1);
-    $(this).parent().remove();
+    renderCartItems();
     updateTotal();
+    updateCartCount(); // Actualizar el contador de productos
+    saveCart();
 });
+
 var debounce = false;
 
 $('#cart-button').on('click', function () {
@@ -97,11 +135,10 @@ $('#cart-button').on('click', function () {
     body.toggleClass('no-scroll');
 
     setTimeout(function() {
-        debounce = false;
+        debounce = false;   
     }, 300);
-}); 
+});
 
-// Cierra el carrito al hacer clic fuera de él
 $('#overlay').on('click', function () {
     var cartPanel = $('#cart');
     var overlay = $('#overlay');

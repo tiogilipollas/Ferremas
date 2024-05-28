@@ -296,13 +296,9 @@ body {
 }
 
 
-#cart-items-container {
-    flex: 1;
-    overflow: auto;
-}
-
-#cart-total {
-    flex-shrink: 0;
+/* Mantén los estilos existentes */
+.cart-panel.show {
+    transform: translateX(0);
 }
 
 #overlay {
@@ -322,7 +318,7 @@ body {
     right: 0;
     bottom: 0;
     width: 300px;
-    overflow: auto;
+    overflow: hidden; /* Ocultar la barra de desplazamiento exterior */
     background: #f8f9fa;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
@@ -338,3 +334,55 @@ body.no-scroll {
     overflow: hidden;
 }
 
+/* Nuevo estilo para el contenedor de los elementos del carrito */
+#cart-items-container {
+    height: calc(100% - 120px); /* Ajusta según sea necesario para que quepa todo el contenido */
+    overflow-y: auto; /* Añadir barra de desplazamiento solo para el contenido */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#cart-total {
+    flex-shrink: 0;
+    padding: 10px 20px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+
+#cart-header, #cart-footer {
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+#cart-header {
+    border-top: none;
+}
+
+#cart-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+#cart-items {
+    padding-bottom: 60px; /* Añadir espacio para los botones */
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn:last-child {
+    margin-bottom: 0;
+}
+
+#toggleAsideButton {
+    width: 150px;  /* Ajusta el ancho según sea necesario */
+    height: 50px; /* Ajusta la altura según sea necesario */
+    font-size: 14px; /* Ajusta el tamaño de la fuente según sea necesario */
+}
