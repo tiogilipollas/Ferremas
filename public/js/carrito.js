@@ -39,7 +39,14 @@ function updateCartCount() {
         totalProducts += product.quantity;
     });
     $('#cart-count').text(totalProducts + ' productos');
+    $('#cart-count-badge').text(totalProducts);
+    if (totalProducts === 0) {
+        $('#cart-count-badge').hide();
+    } else {
+        $('#cart-count-badge').show();
+    }
 }
+
 
 function renderCartItems() {
     $('#cart-items').empty();

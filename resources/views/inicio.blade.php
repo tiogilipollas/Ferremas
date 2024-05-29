@@ -7,23 +7,24 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="overlay"></div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-start">
+    <div class="container">
         <div class="text-center">
             <a href="{{ url('/inicio') }}">
                 <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
             </a>
         </div>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button type="button" class="btn btn-primary ml-2" id="toggleAsideButton">
+            <i class="fas fa-bars"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -33,11 +34,12 @@
                     <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
                 </li>
             </ul>
-            <button type="button" class="btn btn-primary ml-2" id="toggleAsideButton">Herramientas</button>
-            <li class="nav-item">
-                        <button type="button" id="cart-button" class="btn btn-success">Ver carrito</button>
-                    </li>
         </div>
+
+        <button type="button" id="cart-button" class="btn btn-success position-relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+        </button>
     </div>
 </nav>
 

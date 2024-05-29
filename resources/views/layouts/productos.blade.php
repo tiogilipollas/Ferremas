@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferretería FERREMAS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
         .card-img-top {
@@ -34,7 +35,10 @@
                         <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" id="cart-button" class="btn btn-success">Ver carrito</button>
+                    <button type="button" id="cart-button" class="btn btn-success position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                    </button>
                     </li>
                 </ul>
             </div>

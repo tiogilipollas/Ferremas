@@ -318,7 +318,7 @@ body {
     right: 0;
     bottom: 0;
     width: 300px;
-    overflow: hidden; /* Ocultar la barra de desplazamiento exterior */
+    overflow: auto;
     background: #f8f9fa;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
@@ -368,7 +368,7 @@ body.no-scroll {
 }
 
 #cart-items {
-    padding-bottom: 60px; /* Añadir espacio para los botones */
+    padding-bottom: 60px; 
 }
 
 .btn {
@@ -383,14 +383,30 @@ body.no-scroll {
 
 #toggleAsideButton {
     margin-top: 10px    ;
-    width: 150px;  /* Ajusta el ancho según sea necesario */
-    height: 50px; /* Ajusta la altura según sea necesario */
-    font-size: 14px; /* Ajusta el tamaño de la fuente según sea necesario */
+    width: 150px;  
+    height: 50px; 
+    font-size: 14px; 
+}
+
+#cart-button .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    top: -10px;
+    right: -10px;
+    display: none; /* Oculto por defecto */
 }
 
 #cart-button {
-    margin-left: 10px;  /* Ajusta el margen izquierdo según sea necesario */
-    width: 150px;  /* Ajusta el ancho según sea necesario */
-    height: 50px; /* Ajusta la altura según sea necesario */
-    font-size: 14px; /* Ajusta el tamaño de la fuente según sea necesario */
+    position: relative;
+    padding: 5px 10px;
+    font-size: 1rem;
+}
+
+.navbar-nav .nav-item .btn {
+    margin-left: 10px;
+}
+
+#cart-button .badge.show {
+    display: inline-block; /* Mostrar cuando haya productos */
 }
