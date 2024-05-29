@@ -20,9 +20,8 @@
 #cart-button {
   padding: 15px; 
   font-size: 0.8rem; 
-  position: fixed; 
-  top: 5px; 
-  right: 10px; 
+  top: 0px; 
+  right: 250px; 
   z-index: 1000;
   width: 100px; 
 }
@@ -43,9 +42,8 @@
 #toggleAsideButton {
   padding: 15px; 
   font-size: 0.8rem; 
-  position: fixed; 
-  top: 19px; 
-  right: 500px; 
+  top: 15px; 
+  right: 600px; 
   z-index: 1000;
   width: 100px;  
 }

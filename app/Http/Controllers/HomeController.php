@@ -26,6 +26,10 @@ class HomeController extends Controller
     {
         $cliente = Cliente::all(); // Obtiene todos los clientes de la base de datos
         return view('cliente.index', compact('cliente')); // Pasa la variable $cliente a la vista
+
+        
+        $user = Auth::user();
+        return view('home', compact('user'));
     }
 
     /**

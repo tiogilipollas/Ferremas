@@ -20,26 +20,44 @@
                 <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
             </a>
         </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
+                    </li>
+                @else
+                <li class="nav-item">
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        <img src="{{ asset('img/user_login.png') }}" style="width: 40px;" alt="logo">
+                        <a class="nav-link ml-2" href="{{ route('login') }}">{{ Auth::user()->name }}</a>
+                    </div>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                            Cerrar sesión
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                @endguest
+            </ul>
 
         <button type="button" class="btn btn-primary ml-2" id="toggleAsideButton">
             <i class="fas fa-bars"></i>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
-                </li>
-            </ul>
-        </div>
-
         <button type="button" id="cart-button" class="btn btn-success position-relative">
             <i class="fas fa-shopping-cart"></i>
             <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
         </button>
+        
     </div>
 </nav>
 
