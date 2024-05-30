@@ -68,14 +68,17 @@
     </div>
     <div id="cart-items-container">
         <div id="cart-items">
+            
         </div>
     </div>
     <div id="cart-footer">
         <p id="cart-total">Total: $0</p>
-        <button type="button" id="buy-now" class="btn btn-success">Comprar ahora</button>
+        <button type="button" id="buy-now" class="btn btn-success" onclick="window.location.href='{{ route('pago') }}'">Comprar ahora</button>
         <button type="button" id="go-to-cart" class="btn btn-secondary">Ir al carro de compras</button>
     </div>
 </aside>
+
+
 
 <aside id="herramientasAside">
     <h5 class="mt-3">Herramientas</h5>

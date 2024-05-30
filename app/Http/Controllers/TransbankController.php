@@ -13,54 +13,60 @@ class TransbankController extends Controller
     {
         if(app()->environment('production')){
             WebpayPlus::configureForProduction(
-                env('webpay_plus_cc'),
-                env('webpay_plus_apy_key')
+                env('WEBPAY_PLUS_CC'),
+                env('WEBPAY_PLUS_API_KEY')
             );
-        } else{
+        } else {
             WebpayPlus::configureForTesting();
         }
     }
 
     public function iniciar_compra(Request $request)
     {
+        $totalCarrito = $request->input('total');
+    
         $nueva_compra = new Compra();
-        $nueva_compra->session_id = "123456";
-        $nueva_compra->total = 123456;
+        $nueva_compra->session_id = "123456"; // Deberías usar un identificador de sesión real aquí
+        $nueva_compra->total = $totalCarrito;
         $nueva_compra->save();
-        $url_to_play = self::start_web_pay_plus_transaction( $nueva_compra );
-        return $url_to_play;
+    
+        $url_to_pay = $this->start_webpay_plus_transaction($nueva_compra);
+        return response()->json(['url' => $url_to_pay]);
     }
+    
+    
+    
+    
 
-    public function start_web_pay_plus_transaction($nueva_compra)
+    public function start_webpay_plus_transaction($nueva_compra)
     {
         $transaccion = (new Transaction)->create(
             $nueva_compra->id,
             $nueva_compra->session_id,
-            $nueva_compra->total,
+            $nueva_compra->total, // Aquí es donde debes pasar el total de la compra
             route('confirmar_pago')
         );
-        $url = $transaccion->getUrl(). '?token_ws=' .$transaccion->getToken();
-        return $url;
+        return $transaccion->getUrl();
     }
+ 
     
+
     public function confirmar_pago(Request $request)
     {
-        $confirmacion = (new Transaction)->commit ( $request->get('token_ws'));
+        $confirmacion = (new Transaction)->commit($request->get('token_ws'));
 
-        $compra = Compra::where('id', $confirmacion->buyOrder)->first();
+        $compra = Compra::where('id', $confirmacion->getBuyOrder())->first();
 
-        if($confirmacion->isAproved()) {
-            $compra->status =2;
+        if ($confirmacion->isApproved()) {
+            $compra->status = 2;
             $compra->update();
 
-            return redirect( env('URL_FRONTEND_AFTER_PAYMENT')."?compra_id={$compra->id}");
-
-        } else{
-            return redirect( env('URL_FRONTEND_AFTER_PAYMENT')."?compra_id={$compra->id}");
+            return redirect(env('URL_FRONTEND_AFTER_PAYMENT') . "?compra_id={$compra->id}");
+        } else {
+            return redirect(env('URL_FRONTEND_AFTER_PAYMENT') . "?compra_id={$compra->id}");
         }
-
-
     }
 }
+
 
 

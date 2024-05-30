@@ -317,12 +317,13 @@ body {
     top: 0;
     right: 0;
     bottom: 0;
-    width: 300px;
-    overflow: auto;
+    width: 400px;
     background: #f8f9fa;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 2000; /* Asegúrate de que el z-index del panel lateral sea mayor que el del navbar */
+    display: flex;
+    flex-direction: column;
 }
 
 .cart-panel.show {
@@ -336,11 +337,14 @@ body.no-scroll {
 
 /* Nuevo estilo para el contenedor de los elementos del carrito */
 #cart-items-container {
-    height: calc(100% - 120px); /* Ajusta según sea necesario para que quepa todo el contenido */
-    overflow-y: auto; /* Añadir barra de desplazamiento solo para el contenido */
-    padding: 20px;
-    box-sizing: border-box;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 10px; /* Añade un padding en la parte inferior */
+    padding-top: 10px; /* Añade un padding en la parte superior */
+    margin-top: 0; /* Resetear margen superior */
+    margin-bottom: 0; /* Resetear margen inferior */
 }
+
 
 #cart-total {
     flex-shrink: 0;
@@ -356,19 +360,24 @@ body.no-scroll {
 }
 
 #cart-header {
-    border-top: none;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 #cart-footer {
-    position: absolute;
+    position: sticky;
     bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: #fff;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #cart-items {
-    padding-bottom: 60px; 
+    padding-bottom: 0px; 
 }
 
 .btn {
@@ -409,4 +418,88 @@ body.no-scroll {
 
 #cart-button .badge.show {
     display: inline-block; /* Mostrar cuando haya productos */
+}
+
+/* Botones en el pie de página */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    font-size: 1em;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Estilos para los elementos del carrito */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 0; /* Elimina el margen inferior */
+}
+
+/* Último elemento del carrito */
+.cart-item:last-child {
+    margin-bottom: -1px; /* Compensa el borde inferior del último elemento */
+}
+
+
+.cart-item img {
+    margin-right: 10px;
+}
+
+.cart-item p {
+    margin: 0;
+    flex: 1;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+}
+
+.quantity-control button {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #495057;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.quantity {
+    margin: 0 10px;
+}
+
+.remove-from-cart {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.remove-from-cart:hover {
+    background-color: #c82333;
 }

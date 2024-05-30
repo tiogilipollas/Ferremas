@@ -11,6 +11,8 @@ use App\Http\Controllers\AgregarProductosController;
 use App\Http\Controllers\MaterialesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\TransbankController;
 
 
 /*
@@ -48,6 +50,12 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
+
+
+Route::get('/pago', [PaymentController::class, 'showPaymentPage'])->name('pago');
+
+Route::post('/api/iniciar_compra', [TransbankController::class, 'iniciar_compra'])->name('iniciar_compra');
+Route::get('/webpay/confirmacion', [TransbankController::class, 'confirmar_pago'])->name('confirmar_pago');
 
 Auth::routes();
 
