@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('session_id');
             $table->float('total', 9, 2);
             $table->tinyInteger('status')->comment('1: pendiente. 2: Aprobada.')->default(1);
+            $table->string('token')->nullable(); // Agrega esta línea
             $table->softDeletes();
             $table->timestamps();
         });

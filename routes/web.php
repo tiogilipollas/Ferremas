@@ -55,7 +55,8 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/pago', [PaymentController::class, 'showPaymentPage'])->name('pago');
 
 Route::post('/api/iniciar_compra', [TransbankController::class, 'iniciar_compra'])->name('iniciar_compra');
-Route::get('/webpay/confirmacion', [TransbankController::class, 'confirmar_pago'])->name('confirmar_pago');
+Route::get('/confirmacion', [TransbankController::class, 'confirmar_pago'])->name('confirmar_pago');
+Route::post('/webpay_plus_response', 'TransbankController@handleResponse')->name('webpay_plus_response');
 
 Auth::routes();
 
