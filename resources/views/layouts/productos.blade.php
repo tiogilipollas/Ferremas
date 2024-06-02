@@ -53,6 +53,8 @@
                         </form>
                     </li>
                 @endguest
+                
+
                     <button type="button" id="cart-button" class="btn btn-success position-relative">
                         <i class="fas fa-shopping-cart"></i>
                     <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>

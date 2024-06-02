@@ -26,6 +26,7 @@
                             <p class="card-text">Precio: ${{ $producto->precio }}</p>
                             <p class="card-text">Stock: {{ $producto->stock }}</p>
                             <div class="btn-group" role="group" aria-label="Acciones">
+                            <a href="{{ route('productos.show', $producto->ID_producto) }}" class="btn btn-primary" target="_blank">Ver más</a>
                                 <button type="button" class="btn btn-success add-to-cart" data-name="{{ $producto->nombre }}" data-price="{{ $producto->precio }}" data-img="{{ asset('img/' . $producto->imagen) }}">Agregar al carrito</button>
                             </div>
                         </div>

@@ -110,4 +110,16 @@ class ProductoController extends Controller
 
             return redirect()->route('administracionproductos.listaadmin');
         }
+
+        public function show($ID_producto)
+        {
+            $producto = Producto::find($ID_producto);
+
+            if (!$producto) {
+                return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
+            }
+
+            return view('productos.show', compact('producto'));
+        }
+
 }

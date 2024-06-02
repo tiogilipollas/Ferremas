@@ -91,3 +91,9 @@ Route::get('/administracionproductos', [ProductoController::class, 'listaadmin']
 Route::delete('/administracionproductos/{id}', [ProductoController::class, 'destroyadmin'])->name('administracionproductos.destroy');
 Route::get('/administracionproductos/{id}/edit', [ProductoController::class, 'editadmin'])->name('administracionproductos.editadmin');
 Route::put('/administracionproductos/{id}', [ProductoController::class, 'updateadmin'])->name('administracionproductos.updateadmin');
+
+
+Route::get('/search', 'App\Http\Controllers\SearchController@index')->name('search');
+
+
+Route::get('/productos/{ID_producto}', 'App\Http\Controllers\ProductoController@show')->name('productos.show');
