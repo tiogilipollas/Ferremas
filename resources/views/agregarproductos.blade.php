@@ -61,9 +61,9 @@
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card">
-                <div class="card-header bg-light text-center">
-                    <h1 class="text-dark">Agregar Producto</h1>
-                </div>
+                    <div class="card-header bg-light text-center">
+                        <h1 class="text-dark">Agregar Producto</h1>
+                    </div>
                     <div class="card-body">
                         @if(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -94,6 +94,11 @@
                             <div class="form-group">
                                 <label for="stock">Stock</label>
                                 <input type="number" name="stock" id="stock" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="descripcion">Descripción</label>
+                                <input type="text" name="descripcion" id="descripcion" class="form-control" required>
                             </div>
 
                             <div class="form-group">

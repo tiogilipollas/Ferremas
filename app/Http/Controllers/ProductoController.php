@@ -43,6 +43,7 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->precio = $request->precio;
         $producto->stock = $request->stock;
+        $producto->descripcion = $request->descripcion; // Agregado aquí
         $producto->ID_tipo = $request->ID_tipo;
         $producto->save();
         return redirect()->route('productos.listar');
@@ -55,12 +56,10 @@ class ProductoController extends Controller
         return redirect()->route('productos.listar');
     }
 
-
     public function listaadmin(Request $request)
     {
         $categoria = $request->input('categoria');
 
-        // Si se selecciona una categoría, filtramos los productos por esa categoría
         if ($categoria) {
             $categorias = [
                 'herramientas' => [1, 2],
@@ -72,54 +71,50 @@ class ProductoController extends Controller
 
             $productos = Producto::whereIn('ID_tipo', $tipoIds)->get();
         } else {
-            // Si no se selecciona ninguna categoría, mostramos todos los productos
             $productos = Producto::all();
         }
 
         return view('productos.adminindex', compact('productos', 'categoria'));
     }
 
-        public function editadmin($id)
-        {
-            $producto = Producto::find($id);
-            $tipos = TipoProducto::all();
-            return view('productos.editadmin', compact('producto', 'tipos'));
+    public function editadmin($id)
+    {
+        $producto = Producto::find($id);
+        $tipos = TipoProducto::all();
+        return view('productos.editadmin', compact('producto', 'tipos'));
+    }
+
+    public function updateadmin(Request $request, $id)
+    {
+        $producto = Producto::find($id);
+        $producto->nombre = $request->nombre;
+        $producto->precio = $request->precio;
+        $producto->stock = $request->stock;
+        $producto->descripcion = $request->descripcion; // Agregado aquí
+        $producto->ID_tipo = $request->ID_tipo; 
+        $producto->save();
+        return redirect()->route('administracionproductos.listaadmin');
+    }
+
+    public function destroyadmin($id)
+    {
+        DB::table('detallepedidos')->where('id_producto', $id)->delete();
+        DB::table('detalleproveedor')->where('ID_producto', $id)->delete();
+
+        $producto = Producto::find($id);
+        $producto->delete();
+
+        return redirect()->route('administracionproductos.listaadmin');
+    }
+
+    public function show($ID_producto)
+    {
+        $producto = Producto::find($ID_producto);
+
+        if (!$producto) {
+            return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
         }
 
-        public function updateadmin(Request $request, $id)
-        {
-            $producto = Producto::find($id);
-            $producto->nombre = $request->nombre;
-            $producto->precio = $request->precio;
-            $producto->stock = $request->stock;
-            $producto->ID_tipo = $request->ID_tipo; 
-            $producto->save();
-            return redirect()->route('administracionproductos.listaadmin');
-        }
-
-        public function destroyadmin($id)
-        {
- 
-            DB::table('detallepedidos')->where('id_producto', $id)->delete();
-            
-
-            DB::table('detalleproveedor')->where('ID_producto', $id)->delete();
-
-            $producto = Producto::find($id);
-            $producto->delete();
-
-            return redirect()->route('administracionproductos.listaadmin');
-        }
-
-        public function show($ID_producto)
-        {
-            $producto = Producto::find($ID_producto);
-
-            if (!$producto) {
-                return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
-            }
-
-            return view('productos.show', compact('producto'));
-        }
-
+        return view('productos.show', compact('producto'));
+    }
 }

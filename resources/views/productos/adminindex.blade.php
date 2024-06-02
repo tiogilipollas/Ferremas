@@ -28,6 +28,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Producto</th>
                             <th scope="col">Categoría</th>
+                            <th scope="col">Descripcion</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -44,6 +45,9 @@
                                 </div>
                             </td>
                             <td>{{ $producto->tipoProducto->descripcion }}</td>
+                            <td>
+                                {{ $producto->descripcion }}
+                            </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('administracionproductos.editadmin', $producto->ID_producto) }}" class="btn btn-success">Editar</a>

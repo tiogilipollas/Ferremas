@@ -4,6 +4,7 @@
             <tr>
                 <th>Producto</th>
                 <th>Categoría</th>
+                <th>Descripción</th> <!-- Agregado aquí -->
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
                     </div>
                 </td>
                 <td>{{ $producto->tipoProducto->descripcion }}</td>
+                <td>{{ $producto->descripcion }}</td> <!-- Agregado aquí -->
                 <td>
                     <a href="{{ route('productos.edit', $producto->ID_producto) }}" class="btn btn-primary btn-sm">Editar</a>
                 </td>

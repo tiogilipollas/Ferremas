@@ -23,6 +23,7 @@ class AgregarProductosController extends Controller
             'precio' => 'required|numeric',
             'stock' => 'required|integer',
             'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255', // Agregado aquí
             'ID_tipo' => 'required|integer',
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -43,6 +44,7 @@ class AgregarProductosController extends Controller
             'precio' => $request->precio,
             'stock' => $request->stock,
             'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion, // Agregado aquí
             'ID_tipo' => $request->ID_tipo,
             'imagen' => $nombreImagen,
         ]);

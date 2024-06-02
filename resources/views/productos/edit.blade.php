@@ -1,3 +1,4 @@
+
 @extends('layouts.gestionarproductos')
 
 @section('content')
@@ -17,6 +18,10 @@
         <div class="form-group">
             <label for="stock">Stock</label>
             <input type="number" class="form-control" id="stock" name="stock" value="{{ $producto->stock }}" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" required>{{ $producto->descripcion }}</textarea>
         </div>
         <div class="form-group">
             <label for="ID_tipo">Categoría</label>
