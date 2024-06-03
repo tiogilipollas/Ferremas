@@ -69,9 +69,10 @@ Route::post('/home', [HomeController::class, 'store'])->name('home.store');
 
 // Ruta que edita los datos del cliente
 
-Route::put('/home/update/{id_cliente}', [ClienteController::class, 'update'])->name('home.update');
+Route::put('/home/update/{rut}', [ClienteController::class, 'update'])->name('home.update');
 
-Route::DELETE('/home/destroy/{id_cliente}', [ClienteController::class, 'destroy'])->name('home.destroy');
+Route::DELETE('/home/destroy/{rut}', [ClienteController::class, 'destroy'])->name('home.destroy');
+
 
 
 Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');

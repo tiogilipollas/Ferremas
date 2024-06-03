@@ -9,67 +9,42 @@
                 </button>
             </div>
 
-            <form action="{{route('home.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('home.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
+                        <label for="rut" class="form-label">RUT</label>
+                        <input type="number" class="form-control" name="rut" id="rut" aria-describedby="helpId" placeholder="" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dv_rut" class="form-label">DV RUT</label>
+                        <input type="number" class="form-control" name="dv_rut" maxlength="1" required id="dv_rut" aria-describedby="helpId" placeholder="" />
+                    </div>
+
+                    <div class="mb-3">
                         <label for="nombre" class="form-label">NOMBRE</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="nombre"
-                            id="nombre"
-                            aria-describedby="helpId"
-                            placeholder=""
-                        />
+                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId" placeholder="" />
                     </div>
 
                     <div class="mb-3">
                         <label for="apellido" class="form-label">APELLIDO</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="apellido"
-                            id="apellido"
-                            aria-describedby="helpId"
-                            placeholder=""
-                        />
+                        <input type="text" class="form-control" name="apellido" id="apellido" aria-describedby="helpId" placeholder="" />
                     </div>
 
                     <div class="mb-3">
                         <label for="direccion" class="form-label">DIRECCIÓN</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="direccion"
-                            id="direccion"
-                            aria-describedby="helpId"
-                            placeholder=""
-                        />
+                        <input type="text" class="form-control" name="direccion" id="direccion" aria-describedby="helpId" placeholder="" />
                     </div>
 
                     <div class="mb-3">
                         <label for="telefono" class="form-label">TELEFONO</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="telefono"
-                            id="telefono"
-                            aria-describedby="helpId"
-                            placeholder=""
-                        />
+                        <input type="text" class="form-control" name="telefono" id="telefono" aria-describedby="helpId" placeholder="" />
                     </div>
 
                     <div class="mb-3">
                         <label for="correo_electronico" class="form-label">CORREO</label>
-                        <input
-                            type="email"
-                            class="form-control"
-                            name="correo_electronico"
-                            id="correo_electronico"
-                            aria-describedby="helpId"
-                            placeholder=""
-                        />
+                        <input type="email" class="form-control" name="correo_electronico" id="correo_electronico" aria-describedby="helpId" placeholder="" />
                     </div>
                 </div>
 

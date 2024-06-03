@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,12 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::all(); // Obtiene todos los clientes de la base de datos
-        return view('cliente.index', compact('cliente')); // Pasa la variable $cliente a la vista
-
-        
+        $clientes = Cliente::all(); // Obtiene todos los clientes de la base de datos
         $user = Auth::user();
-        return view('home', compact('user'));
+        return view('cliente.index', compact('clientes', 'user')); // Pasa las variables $clientes y $user a la vista
     }
 
     /**
@@ -38,20 +36,70 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request)
     {
-        $cliente = new Cliente;
-        $cliente->nombre = $request->nombre;
-        $cliente->apellido = $request->apellido;
-        $cliente->direccion = $request->direccion;
-        $cliente->telefono = $request->telefono;
-        $cliente->correo_electronico = $request->correo_electronico;
-        // ... asigna los demás campos ...
+        $request->validate([
+            'rut' => 'required|unique:cliente,rut|digits:8,',
+            'dv_rut' => 'required|size:1',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'correo_electronico' => 'required|email',
+        ]);
 
+        $cliente = new Cliente;
+        $cliente->rut = $request->input('rut');
+        $cliente->dv_rut = $request->input('dv_rut');
+        $cliente->nombre = $request->input('nombre');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->direccion = $request->input('direccion');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->correo_electronico = $request->input('correo_electronico');
         $cliente->save();
 
-        return redirect('/home');
+        return redirect('/home')->with('success', 'Cliente creado exitosamente');
     }
 
+    /**
+     * Update an existing client.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $rut
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $rut)
+    {
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            'correo_electronico' => 'required|email',
+        ]);
+
+        $cliente = Cliente::where('rut', $rut)->firstOrFail();
+        $cliente->nombre = $request->input('nombre');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->direccion = $request->input('direccion');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->correo_electronico = $request->input('correo_electronico');
+        $cliente->update();
+
+        return redirect('/home')->with('success', 'Cliente actualizado exitosamente');
+    }
+
+    /**
+     * Remove the specified client from storage.
+     *
+     * @param  int  $rut
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($rut)
+    {
+        $cliente = Cliente::where('rut', $rut)->firstOrFail();
+        $cliente->delete();
+
+        return redirect('/home')->with('success', 'Cliente eliminado exitosamente');
+    }
 }
