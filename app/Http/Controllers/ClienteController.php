@@ -30,13 +30,17 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'rut' => 'required|unique:clientes,rut',
-            'dv_rut' => 'required|size:1',
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'direccion' => 'required',
-            'telefono' => 'required',
-            'correo_electronico' => 'required|email',
+            'rut' => 'required|digits:8|unique:clientes,rut',
+            'dv_rut' => 'required|digits:1',
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'telefono' => 'required|string|max:20',
+            'correo_electronico' => 'required|email|max:255',
+        ], [
+            'rut.unique' => 'El RUT ya está registrado.',
+            'rut.digits' => 'El RUT debe tener exactamente 8 dígitos.',
+            'dv_rut.digits' => 'El Dígito Verificador debe tener exactamente 1 dígito.',
         ]);
 
         $cliente = new Cliente;

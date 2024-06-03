@@ -10,6 +10,7 @@
                 <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
             </a>
         </div>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -32,6 +33,21 @@
                     </form>
                 </li>
             </ul>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
             <ul class="navbar-nav ml-auto">
                 @guest
                     <li class="nav-item">
@@ -49,6 +65,9 @@
                     </li>
                 @endguest
             </ul>
+
+        
+
         </div>
     </div>
 </nav>

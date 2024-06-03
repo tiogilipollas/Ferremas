@@ -10,7 +10,8 @@ class Cliente extends Model
     use HasFactory;
     protected $table = 'cliente';
     protected $primaryKey= 'rut';
-    protected $fillable= ['nombre','apellido','direccion','telefono','correo_electronico'];
+    public $incrementing = false;
+    protected $fillable= ['dv_rut','nombre','apellido','direccion','telefono','correo_electronico'];
     protected $guarded=[];
     public $timestamps=false;
 

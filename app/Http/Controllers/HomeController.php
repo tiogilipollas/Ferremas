@@ -39,8 +39,8 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'rut' => 'required|unique:cliente,rut|digits:8,',
-            'dv_rut' => 'required|size:1',
+            'rut' => 'required|unique:cliente,rut|digits:8',
+            'dv_rut' => 'required|max:1',
             'nombre' => 'required',
             'apellido' => 'required',
             'direccion' => 'required',
