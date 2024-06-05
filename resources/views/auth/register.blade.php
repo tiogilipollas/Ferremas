@@ -65,6 +65,18 @@
                                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" />
                                         </div>
 
+
+                                        <div class="form-outline mb-4">
+                                        <label for="tipo_users">Tipo de Usuario:</label>
+                                        <select id="tipo_users" name="tipo_users" class="form-control" required>
+                                            <option value="Cliente">Cliente</option>
+                                            <option value="Vendedor">Vendedor</option>
+                                            <option value="Bodeguero">Bodeguero</option>
+                                            <option value="Administrador">Administrador</option>
+                                        </select>
+                                        </div>
+
+
                                         <div class="text-center pt-1 mb-5 pb-1">
                                             <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Registrarse</button>
                                         </div>

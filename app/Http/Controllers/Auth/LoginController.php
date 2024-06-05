@@ -22,6 +22,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+
     /**
      * Where to redirect users after login.
      *
@@ -44,6 +45,23 @@ class LoginController extends Controller
     throw ValidationException::withMessages([
         $this->username() => ['Este correo no está registrado o la contraseña incorrecta.'],
     ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        switch ($user->tipo_users) {
+            case 'Cliente':
+                return redirect()->route('inicio');
+            case 'Vendedor':
+                return redirect()->route('agregarproductos.create');
+            case 'Bodeguero':
+                return redirect()->route('administracionproductos.listaadmin');
+            case 'Administrador':
+                return redirect()->route('home.index');
+            default:
+                return redirect('/');
+        }
+        
     }
 
 }
