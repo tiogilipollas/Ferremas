@@ -1,13 +1,7 @@
 @extends('layouts.productos')
 
 @section('content')
-    <header class="header">
-        <div class="container">
-            <div class="header-content text-center">
-                <h1 class="header-title">Herramientas</h1>
-            </div>
-        </div>
-    </header>
+
 
     <section class="featured-products">
         <div class="container">
