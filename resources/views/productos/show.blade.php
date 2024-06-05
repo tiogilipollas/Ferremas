@@ -3,6 +3,7 @@
 
 @section('content')
 
+<article>
 <div class="container mt-5">
     <div class="card" style="border: 1px solid #ddd; border-radius: 10px;">
         <div class="row no-gutters">
@@ -23,9 +24,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <h2 class="mt-5">Productos que te podrían interesar</h2>
+</div>
+<h2 class="mt-5">Productos que te podrían interesar</h2>
     <div class="row mt-3">
         @foreach ($productosCarousel->random(4) as $productoCarrusel)
         <div class="col-md-3">
@@ -38,8 +38,9 @@
                     <a href="{{ route('productos.show', $productoCarrusel->ID_producto) }}" class="btn btn-primary" target="_blank">Ver más</a>
                 </div>
             </div>
-        </div>
+</div>
         @endforeach
-    </div>
+</article>
+
 
 @endsection

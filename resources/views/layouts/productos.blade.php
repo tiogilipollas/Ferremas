@@ -13,6 +13,16 @@
             object-fit: cover;
             height: 250px; 
         }
+        .payment-methods {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .payment-method {
+            width: 50px; 
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +91,7 @@
     </div>
 </nav>
 
-    <aside id="cart" class="cart-panel">
+<aside id="cart" class="cart-panel">
     <div id="cart-header">
         <h2>Mi carro</h2>
         <p id="cart-count">0 productos</p>
@@ -97,27 +107,44 @@
 </aside>
 
 
-    @yield('content')
-    <footer class="footer bg-dark text-white py-5">
+   
+
+@yield('content')
+<footer class="footer bg-dark text-white py-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h3 class="text-uppercase">FERREMAS</h3>
-                <p>Somos una distribuidora de productos de ferretería y construcción con más de 30 años de experiencia en el mercado. Nuestro objetivo es ofrecer productos de alta calidad a precios competitivos.</p>
+            
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Servicio al cliente</h3>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Contáctanos</a></li>
+                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Devoluciones y reembolsos</a></li>
+                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Envío y entrega</a></li>
+                </ul>
             </div>
-            <div class="col-md-4">
-                <h3 class="text-uppercase">Contacto</h3>
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Información de la tienda</h3>
                 <p><i class="fas fa-map-marker-alt mr-2"></i> Santiago, Chile</p>
                 <p><i class="fas fa-phone-alt mr-2"></i> +56 2 1234 5678</p>
                 <p><i class="fas fa-envelope mr-2"></i> info@ferremas.cl</p>
             </div>
-            <div class="col-md-4">
-                <h3 class="text-uppercase">Enlaces</h3>
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Categorías de productos</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Acerca de nosotros</a></li>
-                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Términos y condiciones</a></li>
-                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Política de privacidad</a></li>
+                    <li><a href="{{ route('herramientas') }}" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Herramientas</a></li>
+                    <li><a href="{{ route('materiales') }}" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Materiales</a></li>
+                    <li><a href="{{ route('equipos') }}" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Equipos</a></li>
                 </ul>
+            </div>
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Medios de Pago</h3>
+                <div class="payment-methods">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-04___64c6f337fae628fd8d570153b0d90da6.svg" alt="Medio de pago ScotiaBank">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-03___35ba0fbaa9b3b09a7c4cd1060c1833b9.svg" alt="Medio de pago MasterCard">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-01___7be2be91eea77f9694ea89142ceb6d36.svg" alt="Medio de pago VISA">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-05___e0b22fb60d3c1a8c1f583c01655eaaf3.svg" alt="Medio de pago American Express">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-02___068200029cfbe613d668e18f000c7786.svg" alt="Medio de pago Red Compra">
+                </div>
             </div>
         </div>
         <div class="row mt-4">
@@ -127,6 +154,8 @@
         </div>
     </div>
 </footer>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/carrito.js') }}"></script>

@@ -94,18 +94,62 @@
         <h1 class="display-4">Bienvenido a FERREMAS</h1>
         <p class="lead">Tu distribuidora de productos de ferretería y construcción en Santiago y todo Chile.</p>
         
-        <style>
-.carousel-item {
-  height: 600px; /* Ajusta este valor según tus necesidades */
-  overflow: hidden;
-}
+<style>
+    .carousel-item {
+        height: 600px;
+        overflow: hidden;
+    }
 
-.carousel-item img {
-  height: 100%;
-  object-fit: cover;
-}
+    .carousel-item img {
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(50%); 
+    }
+
+    .payment-methods {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .payment-method {
+        width: 50px; 
+        height: auto;
+    }
+
+    .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        text-align: left;
+        color: #fff; 
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 1s;
+        line-height: 1.0;
+        background-color: transparent; 
+        padding: 0; 
+    }
+
+    .carousel-item.active .carousel-caption {
+        opacity: 1;
+    }
+
+    .carousel-caption h5 {
+        font-size: 5rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .carousel-caption p {
+        font-size: 2rem;
+    }
 </style>
 
+</header>
+<article>
 <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -113,14 +157,26 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
-        <div class="carousel-item active" data-interval="5000">
-            <img src="https://d100mj7v0l85u5.cloudfront.net/s3fs-public/2023-04/funciones-del-jefe-de-compras-6.png" class="d-block w-100" alt="...">
+        <div class="carousel-item active" data-interval="4000">
+            <img src="https://www.dimacen.cl/images/productos/ferreteria.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Todo para tu construcción</h5>
+                <p>Encuentra las mejores herramientas y materiales en Ferremas</p>
+            </div>
         </div>
-        <div class="carousel-item" data-interval="5000">
-            <img src="https://www.zarla.com/images/Zarla-hardware-store-logos-5184x3456-2022015.jpeg?crop=21:16,smart&width=420&dpr=2" class="d-block w-100" alt="...">
+        <div class="carousel-item" data-interval="4000">
+            <img src="https://www.dimacen.cl/images/slides/1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Calidad y durabilidad</h5>
+                <p>Nuestros productos garantizan la máxima eficiencia para tus proyectos</p>
+            </div>
         </div>
-        <div class="carousel-item" data-interval="5000">
-            <img src="https://www.nortonabrasives.com/sites/sga.na.com/files/styles/node__field_blog_image__full/public/blog/que-vender-en-una-%20ferreteria_0.jpg?itok=Uup553v7" class="d-block w-100" alt="...">
+        <div class="carousel-item" data-interval="4000">
+            <img src="https://www.dimacen.cl/images/slides/4.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Asesoramiento experto</h5>
+                <p>Contamos con un equipo de profesionales para ayudarte en tus compras</p>
+            </div>
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -132,9 +188,9 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-    </div>
-</header>
+</article>
 
+   
 <section class="py-5">
     <div class="container">
         <div class="row">
@@ -143,7 +199,7 @@
                     <div class="card" style="width: 18rem; transition: transform .2s; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;" onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#f8f9fa';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='';">
                         <img class="card-img-top" src="{{ asset('img/herramientas.png') }}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Herramientas</h5>
+                            <h5 class="card-title" style="margin-left: 10px;">Herramientas</h5> 
                         </div>
                     </div>
                 </a>
@@ -153,7 +209,7 @@
                     <div class="card" style="width: 18rem; transition: transform .2s; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;" onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#f8f9fa';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='';">
                         <img class="card-img-top" src="{{ asset('img/materiales.png') }}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Materiales</h5>
+                            <h5 class="card-title" style="margin-left: 10px;">Materiales</h5> 
                         </div>
                     </div>
                 </a>
@@ -163,7 +219,7 @@
                     <div class="card" style="width: 18rem; transition: transform .2s; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;" onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#f8f9fa';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='';">
                         <img class="card-img-top" src="{{ asset('img/equipos.png') }}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Equipos</h5>
+                            <h5 class="card-title" style="margin-left: 10px;">Equipos</h5>
                         </div>
                     </div>
                 </a>
@@ -190,23 +246,38 @@
 <footer class="footer bg-dark text-white py-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <h3 class="text-uppercase">FERREMAS</h3>
-                <p>Somos una distribuidora de productos de ferretería y construcción con más de 30 años de experiencia en el mercado. Nuestro objetivo es ofrecer productos de alta calidad a precios competitivos.</p>
+            
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Servicio al cliente</h3>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Contáctanos</a></li>
+                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Devoluciones y reembolsos</a></li>
+                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Envío y entrega</a></li>
+                </ul>
             </div>
-            <div class="col-md-4">
-                <h3 class="text-uppercase">Contacto</h3>
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Información de la tienda</h3>
                 <p><i class="fas fa-map-marker-alt mr-2"></i> Santiago, Chile</p>
                 <p><i class="fas fa-phone-alt mr-2"></i> +56 2 1234 5678</p>
                 <p><i class="fas fa-envelope mr-2"></i> info@ferremas.cl</p>
             </div>
-            <div class="col-md-4">
-                <h3 class="text-uppercase">Enlaces</h3>
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Categorías de productos</h3>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Acerca de nosotros</a></li>
-                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Términos y condiciones</a></li>
-                    <li><a href="#" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Política de privacidad</a></li>
+                    <li><a href="{{ route('herramientas') }}" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Herramientas</a></li>
+                    <li><a href="{{ route('materiales') }}" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Materiales</a></li>
+                    <li><a href="{{ route('equipos') }}" class="text-white"><i class="fas fa-chevron-right mr-2"></i>Equipos</a></li>
                 </ul>
+            </div>
+            <div class="col-md-3">
+                <h3 class="text-uppercase">Medios de Pago</h3>
+                <div class="payment-methods">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-04___64c6f337fae628fd8d570153b0d90da6.svg" alt="Medio de pago ScotiaBank">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-03___35ba0fbaa9b3b09a7c4cd1060c1833b9.svg" alt="Medio de pago MasterCard">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-01___7be2be91eea77f9694ea89142ceb6d36.svg" alt="Medio de pago VISA">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-05___e0b22fb60d3c1a8c1f583c01655eaaf3.svg" alt="Medio de pago American Express">
+                    <img class="payment-method" src="https://easycl.vtexassets.com/assets/vtex/assets-builder/easycl.store-theme/7.0.46/footer/Logo-02___068200029cfbe613d668e18f000c7786.svg" alt="Medio de pago Red Compra">
+                </div>
             </div>
         </div>
         <div class="row mt-4">
@@ -220,5 +291,17 @@
 <script src="{{ asset('js/inicio.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.carousel').on('slide.bs.carousel', function () {
+        $('.carousel-caption').css('opacity', 0);
+    });
+
+    $('.carousel').on('slid.bs.carousel', function () {
+        $('.active .carousel-caption').css('opacity', 1);
+    });
+});
+</script>
+
 </body>
 </html>
