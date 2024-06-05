@@ -35,7 +35,7 @@
                     <h5 class="card-title">{{ $productoCarrusel->nombre }}</h5>
                     <p class="card-text">Precio: ${{ $productoCarrusel->precio }}</p>
                     <p class="card-text">Stock: {{ $productoCarrusel->stock }}</p>
-                    <a href="{{ route('productos.show', $productoCarrusel->ID_producto) }}" class="btn btn-primary" target="_blank">Ver más</a>
+                    <a href="{{ route('productos.show', $productoCarrusel->ID_producto) }}" class="btn btn-primary" >Ver más</a>
                 </div>
             </div>
 </div>
