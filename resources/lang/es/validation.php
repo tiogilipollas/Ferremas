@@ -119,4 +119,14 @@ return [
 
     'attributes' => [],
 
+
+    'custom' => [
+        'rut' => [
+            'digits' => 'El RUT debe tener exactamente 8 dígitos.',
+        ],
+        'dv_rut' => [
+            'digits' => 'El Dígito Verificador debe tener exactamente 1 dígito.',
+        ],
+    ],
+
 ];

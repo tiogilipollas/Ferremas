@@ -10,6 +10,7 @@
                 <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
             </a>
         </div>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -32,6 +33,21 @@
                     </form>
                 </li>
             </ul>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
             <ul class="navbar-nav ml-auto">
                 @guest
                     <li class="nav-item">
@@ -49,6 +65,9 @@
                     </li>
                 @endguest
             </ul>
+
+        
+
         </div>
     </div>
 </nav>
@@ -64,28 +83,33 @@
                 <table class="table table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">RUT</th>
+                            <th scope="col">DV</th>
                             <th scope="col">NOMBRE</th>
                             <th scope="col">APELLIDO</th>
                             <th scope="col">DIRECCIÓN</th>
-                            <th scope="col">TELEFONO</th>
-                            <th>CORREO</th>
-                            <th>ACCIONES</th>
+                            <th scope="col">TELÉFONO</th>
+                            <th scope="col">CORREO</th>
+                            <th scope="col">ACCIONES</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($cliente as $cliente)
+                        @foreach ($clientes as $cliente)
                         <tr>
-                            <td scope="row"> {{$cliente->id_cliente}}</td>
-                            <td> {{ $cliente->nombre }}</td>
-                            <td> {{ $cliente->apellido }}</td>
-                            <td> {{ $cliente->direccion }}</td>
-                            <td> {{ $cliente->telefono }}</td>
-                            <td> {{ $cliente->correo_electronico }}</td>
+                            <td>{{ $cliente->rut }}</td>
+                            <td>{{ $cliente->dv_rut }}</td>
+                            <td>{{ $cliente->nombre }}</td>
+                            <td>{{ $cliente->apellido }}</td>
+                            <td>{{ $cliente->direccion }}</td>
+                            <td>{{ $cliente->telefono }}</td>
+                            <td>{{ $cliente->correo_electronico }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit {{$cliente->id_cliente}}">Editar</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete {{$cliente->id_cliente}}">Eliminar</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#edit{{ $cliente->rut }}">Editar</button>
+                    
+                                    <!-- Botón para abrir el modal de eliminar -->
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete{{ $cliente->rut }}">Eliminar</button>
+                                </td>
                                 </div>
                             </td>
                         </tr>
@@ -98,4 +122,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection
