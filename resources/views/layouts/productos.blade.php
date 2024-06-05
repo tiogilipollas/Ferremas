@@ -63,8 +63,8 @@
                     </li>
                 @else
                     <li class="nav-item d-flex align-items-center">
-                        <img src="{{ asset('img/user_login.png') }}" style="width: 40px;" class="rounded-circle" alt="user">
-                        <span class="nav-link mb-0">{{ Auth::user()->name }}</span>
+                        <img src="{{ asset('img/user_login.png') }}" style="width: 40px;" alt="logo">
+                            <a class="nav-link ml-2" href="{{ route('login') }}">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"
