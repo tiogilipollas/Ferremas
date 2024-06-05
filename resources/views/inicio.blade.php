@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="overlay"></div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container">
         <div class="navbar-brand">
             <a href="{{ url('/inicio') }}">

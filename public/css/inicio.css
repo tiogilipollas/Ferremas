@@ -51,3 +51,7 @@
 #toggleAsideButton .fas {
   font-size: 1rem; 
 }
+
+.navbar-custom {
+  background-color: #1b75c9; /* Cambia esto al código de color que prefieras */
+}
