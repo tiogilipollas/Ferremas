@@ -49,17 +49,21 @@
                     </li>
                 @endguest
             </ul>
-
-            <div class="d-flex justify-content-center align-items-center w-100">
-                <form class="form-inline my-2 my-lg-0 mx-auto w-50" action="{{ route('search') }}" method="GET">
+            
+            <div class="d-flex justify-content-center align-items-center w-75">
+                <form class="form-inline my-2 my-lg-0 mx-auto w-75" action="{{ route('search') }}" method="GET">
                     <input class="form-control mr-sm-2 w-100" type="search" name="query" placeholder="Buscar" aria-label="Buscar">
-                </form>
+                </form> 
+            </div>
+            <div class="d-flex justify-content-center align-items-center w-75">
+                
 
-                <button type="button" id="cart-button" class="btn btn-success position-relative ml-4">
+                
+            </div>
+            <button type="button" id="cart-button" class="btn btn-success position-relative ml-4">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
                 </button>
-            </div>
         </div>
     </div>
 </nav>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\TransbankController;
+use App\Http\Controllers\ConfirmarPagoController;
 
 
 /*
@@ -50,6 +51,10 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
+Route::post('/confirmar_pago', [ConfirmarPagoController::class, 'confirmar_pago'])->name('confirmar_pago');
+
+
+Route::get('/rechazo', function () { return view('rechazo');})->name('rechazo');
 
 
 Route::get('/pago', [PaymentController::class, 'showPaymentPage'])->name('pago');

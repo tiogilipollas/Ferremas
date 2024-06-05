@@ -107,14 +107,20 @@ class ProductoController extends Controller
         return redirect()->route('administracionproductos.listaadmin');
     }
 
+    public function getCarouselProducts()
+    {
+        $productos = Producto::limit(1000)->get(); // Obtiene los primeros 5 productos
+        return $productos;
+    }
     public function show($ID_producto)
     {
         $producto = Producto::find($ID_producto);
+        $productosCarousel = $this->getCarouselProducts(); // Obtiene los productos para el carrusel
 
         if (!$producto) {
             return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
         }
 
-        return view('productos.show', compact('producto'));
+        return view('productos.show', compact('producto', 'productosCarousel'));
     }
 }
