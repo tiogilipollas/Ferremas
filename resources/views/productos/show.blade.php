@@ -19,12 +19,27 @@
                     <h6 class="card-subtitle mb-2 text-muted"><strong>Precio:</strong> ${{ $producto->precio }}</h6>
                     <p class="card-text"><strong>Stock:</strong> {{ $producto->stock }}</p>
                     <p class="card-text"><strong>Descripción:</strong> {{ $producto->descripcion }}</p>
-                    <button type="button" class="btn btn-primary add-to-cart" data-name="{{ $producto->nombre }}" data-price="{{ $producto->precio }}" data-img="{{ asset('img/' . $producto->imagen) }}">Agregar al carrito</button>
+                    <button type="button" class="btn btn-success add-to-cart" data-name="{{ $producto->nombre }}" data-price="{{ $producto->precio }}" data-img="{{ asset('img/' . $producto->imagen) }}">Agregar al carrito</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <h2 class="mt-5">Productos que te podrían interesar</h2>
+    <div class="row mt-3">
+        @foreach ($productosCarousel->random(4) as $productoCarrusel)
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ asset('img/' . $productoCarrusel->imagen) }}" class="card-img-top" alt="{{ $productoCarrusel->nombre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $productoCarrusel->nombre }}</h5>
+                    <p class="card-text">Precio: ${{ $productoCarrusel->precio }}</p>
+                    <p class="card-text">Stock: {{ $productoCarrusel->stock }}</p>
+                    <a href="{{ route('productos.show', $productoCarrusel->ID_producto) }}" class="btn btn-primary" target="_blank">Ver más</a>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 
 @endsection
-

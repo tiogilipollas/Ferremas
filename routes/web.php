@@ -63,12 +63,11 @@ Route::post('/api/iniciar_compra', [TransbankController::class, 'iniciar_compra'
 Route::get('/confirmacion', [TransbankController::class, 'confirmar_pago'])->name('confirmar_pago');
 Route::post('/webpay_plus_response', 'TransbankController@handleResponse')->name('webpay_plus_response');
 
+
 Auth::routes();
 
 
 // Ruta que guarda los datos del cliente
-Route::get('/home', [HomeController::class, 'index'])->name('home.index');
-
 Route::post('/home', [HomeController::class, 'store'])->name('home.store');
 
 
@@ -79,9 +78,13 @@ Route::put('/home/update/{rut}', [ClienteController::class, 'update'])->name('ho
 Route::DELETE('/home/destroy/{rut}', [ClienteController::class, 'destroy'])->name('home.destroy');
 
 
-
-Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');
-Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos.store');
+Route::group(['middleware' => ['auth', 'checkusertype:Vendedor,Bodeguero,Administrador']], function () {
+    Route::get('/agregarproductos', [AgregarProductosController::class, 'create'])->name('agregarproductos.create');
+    Route::post('/agregarproductos', [AgregarProductosController::class, 'store'])->name('agregarproductos.store');
+    Route::get('/adminindex', [AgregarProductosController::class, 'index'])->name('adminindex');
+    Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+    Route::resource('clientes', ClienteController::class);
+});
 
 Route::prefix('gestionproductos')->group(function () {
     Route::get('/{categoria?}', [ProductoController::class, 'listar'])->name('productos.listar');

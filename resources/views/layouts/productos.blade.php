@@ -16,19 +16,17 @@
 </head>
 <body>
     <div id="overlay"></div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
-        <div class="container">
-            <div class="text-center">
-                <a href="{{ url('/inicio') }}">
-                    <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
-                </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    @guest
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="{{ url('/inicio') }}">
+                <img src="{{ asset('img/logo_ferremas_transparente.png') }}" style="width: 80px;" alt="logo">
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
                     </li>
@@ -36,12 +34,12 @@
                         <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
                     </li>
                 @else
-                <li class="nav-item">
-                    <div class="d-flex justify-content-between align-items-center w-100">
-                        <img src="{{ asset('img/user_login.png') }}" style="width: 40px;" alt="logo">
-                        <a class="nav-link ml-2" href="{{ route('login') }}">{{ Auth::user()->name }}</a>
-                    </div>
-                </li>
+                    <li class="nav-item">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <img src="{{ asset('img/user_login.png') }}" style="width: 40px;" alt="logo">
+                            <a class="nav-link ml-2" href="{{ route('login') }}">{{ Auth::user()->name }}</a>
+                        </div>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -53,17 +51,25 @@
                         </form>
                     </li>
                 @endguest
+            </ul>
+            
+            <div class="d-flex justify-content-center align-items-center w-75">
+                <form class="form-inline my-2 my-lg-0 mx-auto w-75" action="{{ route('search') }}" method="GET">
+                    <input class="form-control mr-sm-2 w-100" type="search" name="query" placeholder="Buscar" aria-label="Buscar">
+                </form> 
+            </div>
+            <div class="d-flex justify-content-center align-items-center w-75">
                 
 
-                    <button type="button" id="cart-button" class="btn btn-success position-relative">
-                        <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                    </button>
-                    </li>
-                </ul>
+                
             </div>
+            <button type="button" id="cart-button" class="btn btn-success position-relative ml-4">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                </button>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <aside id="cart" class="cart-panel">
     <div id="cart-header">
