@@ -89,10 +89,7 @@
     </ul>
 </aside>
 
-<header class="bg-light py-3">
-    <div class="container text-center">
-        <h1 class="display-4">Bienvenido a FERREMAS</h1>
-        <p class="lead">Tu distribuidora de productos de ferretería y construcción en Santiago y todo Chile.</p>
+
         
 <style>
     .carousel-item {
@@ -148,7 +145,7 @@
     }
 </style>
 
-</header>
+
 <article>
 <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -193,6 +190,7 @@
    
 <section class="py-5">
     <div class="container">
+        <h2 class="text-center mb-4">Eliga el tipo de producto que deseas comprar</h2> <!-- Título agregado -->
         <div class="row">
             <div class="col-md-4 text-center px-2">
                 <a href="{{ route('herramientas') }}" class="text-decoration-none text-dark">
@@ -293,15 +291,25 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('.carousel').on('slide.bs.carousel', function () {
-        $('.carousel-caption').css('opacity', 0);
-    });
+    $('#carouselExampleIndicators').on('slide.bs.carousel', function (e) {
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 1;
+        var totalItems = $('.carousel-item').length;
 
-    $('.carousel').on('slid.bs.carousel', function () {
-        $('.active .carousel-caption').css('opacity', 1);
-    });
-});
-</script>
+        if (idx >= totalItems-(itemsPerSlide-1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i=0; i<it; i++) {
 
+                if (e.direction=="left") {
+                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
+                }
+                else {
+                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
+                }
+            }
+        }
+    });
+});</script>
 </body>
 </html>
