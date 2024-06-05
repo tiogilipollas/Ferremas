@@ -42,7 +42,6 @@ Route::get('/equipos', [EquiposController::class, 'index'])->name('equipos');
 Route::get('/inicio', [InicioController::class, 'inicio'])->name('inicio');
 
 
-
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');

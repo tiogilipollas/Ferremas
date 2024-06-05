@@ -1,20 +1,29 @@
+
 @extends('layouts.productos')
 
 @section('content')
 
-
     <div class="container">
-    <h2>Confirmación de Pago</h2>
-    <p>Nombre del Comercio: Ferremas</p>
-    <p>Orden de Pedido: {{ $compra->ID_pedido }}</p>
-    <p>Monto Pagado: {{ $compra->total }}</p>
-    <p>Fecha del Pago: {{ $compra->updated_at }}</p>
-    <p>Tipo de Pago: {{ $pago->tipo_pago }}</p>
-    @if($pago->cuotas > 0)
-        <p>Cuotas: {{ $pago->cuotas }}</p>
-        <p>Monto por Cuota: {{ $pago->monto / $pago->cuotas }}</p>
-    @else
-        <p>Sin Cuotas</p>
-    @endif
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center"><h2>Confirmación de Pago</h2></div>
+                    <div class="card-body">
+                        <p><strong>Nombre del Comercio:</strong> Ferremas</p>
+                        <p><strong>Orden de Pedido:</strong> {{ $compra->ID_pedido }}</p>
+                        <p><strong>Monto Pagado:</strong> ${{ number_format($compra->total, 0, ',', '.') }}</p>
+                        <p><strong>Fecha del Pago:</strong> {{ $compra->updated_at }}</p>
+                        <p><strong>Tipo de Pago:</strong> {{ $pago->tipo_pago }}</p>
+                        @if($pago->cuotas > 0)
+                            <p><strong>Cuotas:</strong> {{ $pago->cuotas }}</p>
+                            <p><strong>Monto por Cuota:</strong> ${{ number_format(round($pago->monto / $pago->cuotas), 0, ',', '.') }}</p>
+                        @else
+                            <p><strong>Sin Cuotas</strong></p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 @endsection

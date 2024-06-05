@@ -112,10 +112,11 @@ class TransbankController extends Controller
 
             // Obtener el tipo de pago
             $paymentTypeCode = $confirmacion->getPaymentTypeCode();
+            \Log::info('Payment Type Code', ['code' => $paymentTypeCode]);
             if ($paymentTypeCode == 'VD') {
-                $pago->tipo_pago = 'Crédito';
-            } elseif ($paymentTypeCode == 'VN') {
                 $pago->tipo_pago = 'Débito';
+            } elseif ($paymentTypeCode == 'VN') {
+                $pago->tipo_pago = 'Crédito';       
             } else {
                 $pago->tipo_pago = 'Desconocido'; // O cualquier valor por defecto que quieras usar
             }
