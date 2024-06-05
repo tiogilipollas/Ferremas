@@ -98,7 +98,7 @@ class ProductoController extends Controller
 
     public function destroyadmin($id)
     {
-        DB::table('detallepedidos')->where('id_producto', $id)->delete();
+
         DB::table('detalleproveedor')->where('ID_producto', $id)->delete();
 
         $producto = Producto::find($id);
