@@ -44,6 +44,7 @@ class Confirmarpago extends Controller
             $pago->save();
            
 
+
             // y luego redirigir al usuario a la página de confirmación
             return redirect()->route('confirmar', ['orderId' => $orderId]);
         } else {
