@@ -42,13 +42,20 @@ class ProductoController extends Controller
         $producto = Producto::find($id);
         $producto->nombre = $request->nombre;
         $producto->precio = $request->precio;
-        $producto->stock = $request->stock;
         $producto->descripcion = $request->descripcion; 
         $producto->ID_tipo = $request->ID_tipo;
     
         // Verificar si el stock es 0 y actualizar el estado a 'descontinuado'
-        if ($producto->stock == 0) {
+        if ($request->stock == 0) {
             $producto->estado = 'descontinuado';
+            $producto->stock = 0; // Asegurar que el stock se actualice a 0
+        } else {
+            $producto->stock = $request->stock; // Actualizar el stock con el valor proporcionado
+            // Si el estado es 'activo', asegurar que el stock sea al menos 1
+            if ($request->estado == 'activo' && $producto->stock < 1) {
+                $producto->stock = 1;
+            }
+            $producto->estado = $request->estado; // Actualizar el estado con el valor proporcionado
         }
     
         $producto->save();
@@ -90,24 +97,22 @@ class ProductoController extends Controller
         return view('productos.editadmin', compact('producto', 'tipos'));
     }
 
-    public function updateadmin(Request $request, $id)
+   public function updateadmin(Request $request, $id)
     {
-    $producto = Producto::find($id);
-    $producto->nombre = $request->nombre;
-    $producto->precio = $request->precio;
-    $producto->stock = $request->stock;
-    $producto->descripcion = $request->descripcion;
-    $producto->ID_tipo = $request->ID_tipo;
+        $producto = Producto::find($id);
+        $producto->nombre = $request->nombre;
+        $producto->precio = $request->precio;
+        $producto->stock = $request->stock;
+        $producto->descripcion = $request->descripcion;
+        $producto->ID_tipo = $request->ID_tipo;
 
-    // Verificar si el stock es 0 y actualizar el estado a 'descontinuado'
-    if ($producto->stock == 0) {
-        $producto->estado = 'descontinuado';
-    } else {
-        $producto->estado = 'activo';
-    }
+        // Verificar si el stock es 0 y actualizar el estado a 'descontinuado'
+        if ($producto->stock == 0) {
+            $producto->estado = 'descontinuado';
+        } 
 
-    $producto->save();
-    return redirect()->route('administracionproductos.listaadmin');
+        $producto->save();
+        return redirect()->route('administracionproductos.listaadmin');
     }
 
     public function destroyadmin($id)
@@ -140,12 +145,21 @@ class ProductoController extends Controller
         return view('productos.show', compact('producto', 'productosCarousel'));
     }
     
-        public function updateEstado(Request $request, $id)
+    public function updateEstado(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);
-        $producto->estado = $request->get('estado');
+        $estado = $request->get('estado');
+    
+        // Si el estado es 'descontinuado', establecer el stock a 0
+        if ($estado == 'descontinuado') {
+            $producto->stock = 0;
+        }else{
+            $producto->stock = 1;
+        }
+    
+        $producto->estado = $estado;
         $producto->save();
-
+    
         return redirect()->back()->with('success', 'El estado del producto ha sido actualizado correctamente.');
     }
 
