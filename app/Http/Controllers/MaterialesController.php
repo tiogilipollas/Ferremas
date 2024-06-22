@@ -18,7 +18,8 @@ class MaterialesController extends Controller
         $productos = DB::table('productos as p')
             ->join('tipo_producto as tp', 'p.ID_tipo', '=', 'tp.ID_tipo')
             ->whereIn('p.ID_tipo', [3, 4])
-            ->select('p.ID_producto', 'p.nombre', 'p.precio', 'p.stock', 'tp.descripcion as tipo_producto', 'p.imagen')
+            ->whereIn('p.estado', ['activo', 'descontinuado']) 
+            ->select('p.ID_producto', 'p.nombre', 'p.precio', 'p.stock', 'p.estado', 'tp.descripcion as tipo_producto', 'p.imagen')
             ->get();
         
         return view('materiales', ['productos' => $productos]);

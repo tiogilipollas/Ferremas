@@ -105,3 +105,6 @@ Route::get('/search', 'App\Http\Controllers\SearchController@index')->name('sear
 
 
 Route::get('/productos/{ID_producto}', 'App\Http\Controllers\ProductoController@show')->name('productos.show');
+
+Route::put('/administracionproductos/{producto}/estado', [App\Http\Controllers\ProductoController::class, 'updateEstado'])->name('administracionproductos.updateEstado');
+

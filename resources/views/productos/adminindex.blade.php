@@ -1,8 +1,17 @@
+
 @extends('layouts.gestionarproductos')
+
 
 @section('content')
 <div class="container">
     <h1 class="my-4">Administración de Productos</h1>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     <form action="{{ route('administracionproductos.listaadmin') }}" method="GET" class="form-inline mb-4">
     <br>
         <div class="form-group mr-2">
@@ -30,42 +39,56 @@
                             <th scope="col">Categoría</th>
                             <th scope="col">Descripcion</th>
                             <th scope="col">Acciones</th>
+                            <th scope="col">Estado del Producto!</th> 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($productos as $producto)
-                        <tr>
-                            <td scope="row">{{ $producto->ID_producto }}</td>
-                            <td>
-                                <div>
-                                    <img src="{{ asset('img/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="max-width: 100px;"><br>
-                                    <strong>Nombre:</strong> {{ $producto->nombre }}<br>
-                                    <strong>Precio:</strong> ${{ $producto->precio }}<br>
-                                    <strong>Stock:</strong> {{ $producto->stock }}
-                                </div>
-                            </td>
-                            <td>{{ $producto->tipoProducto->descripcion }}</td>
-                            <td>
-                                {{ $producto->descripcion }}
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="{{ route('administracionproductos.editadmin', $producto->ID_producto) }}" class="btn btn-success">Editar</a>
-                                    <form action="{{ route('administracionproductos.destroy', $producto->ID_producto) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')">Eliminar</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    @foreach($productos as $producto)
+    <tr>
+        <td scope="row">{{ $producto->ID_producto }}</td>
+        <td>
+            <div>
+                <img src="{{ asset('img/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" style="max-width: 100px;"><br>
+                <strong>Nombre:</strong> {{ $producto->nombre }}<br>
+                <strong>Precio:</strong> ${{ $producto->precio }}<br>
+                <strong>Stock:</strong> {{ $producto->stock }}
+            </div>
+        </td>
+        <td>{{ $producto->tipoProducto->descripcion }}</td>
+        <td>
+            {{ $producto->descripcion }}
+        </td>
+        <td>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a href="{{ route('administracionproductos.editadmin', $producto->ID_producto) }}" class="btn btn-success">Editar</a>
+            </div>
+        </td>
+        <td> 
+            <form id="estadoForm{{ $producto->ID_producto }}" action="{{ route('administracionproductos.updateEstado', $producto->ID_producto) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <select name="estado" class="form-control" onchange="submitForm({{ $producto->ID_producto }})">
+                    <option value="activo" {{ $producto->estado == 'activo' ? 'selected' : '' }}>Activo</option>
+                    <option value="inactivo" {{ $producto->estado == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                    <option value="descontinuado" {{ $producto->estado == 'descontinuado' ? 'selected' : '' }}>Descontinuado</option>
+                </select>
+            </form>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
+</table>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function submitForm(id) {
+    document.getElementById('estadoForm' + id).submit();
+}
+</script>
 @endsection
 
 @section('agregarproductos')

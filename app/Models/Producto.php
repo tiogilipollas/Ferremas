@@ -17,6 +17,7 @@ class Producto extends Model
         'descripcion',
         'ID_tipo',
         'imagen',
+        'estado', 
     ];
 
     public function tipoProducto()

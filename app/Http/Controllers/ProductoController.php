@@ -43,8 +43,14 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->precio = $request->precio;
         $producto->stock = $request->stock;
-        $producto->descripcion = $request->descripcion; // Agregado aquí
+        $producto->descripcion = $request->descripcion; 
         $producto->ID_tipo = $request->ID_tipo;
+    
+        // Verificar si el stock es 0 y actualizar el estado a 'descontinuado'
+        if ($producto->stock == 0) {
+            $producto->estado = 'descontinuado';
+        }
+    
         $producto->save();
         return redirect()->route('productos.listar');
     }
@@ -86,14 +92,22 @@ class ProductoController extends Controller
 
     public function updateadmin(Request $request, $id)
     {
-        $producto = Producto::find($id);
-        $producto->nombre = $request->nombre;
-        $producto->precio = $request->precio;
-        $producto->stock = $request->stock;
-        $producto->descripcion = $request->descripcion; // Agregado aquí
-        $producto->ID_tipo = $request->ID_tipo; 
-        $producto->save();
-        return redirect()->route('administracionproductos.listaadmin');
+    $producto = Producto::find($id);
+    $producto->nombre = $request->nombre;
+    $producto->precio = $request->precio;
+    $producto->stock = $request->stock;
+    $producto->descripcion = $request->descripcion;
+    $producto->ID_tipo = $request->ID_tipo;
+
+    // Verificar si el stock es 0 y actualizar el estado a 'descontinuado'
+    if ($producto->stock == 0) {
+        $producto->estado = 'descontinuado';
+    } else {
+        $producto->estado = 'activo';
+    }
+
+    $producto->save();
+    return redirect()->route('administracionproductos.listaadmin');
     }
 
     public function destroyadmin($id)
@@ -107,20 +121,32 @@ class ProductoController extends Controller
         return redirect()->route('administracionproductos.listaadmin');
     }
 
-    public function getCarouselProducts()
+        public function getCarouselProducts()
     {
-        $productos = Producto::limit(1000)->get(); // Obtiene los primeros 5 productos
+        // Obtiene solo los productos activos para el carrusel
+        $productos = Producto::where('estado', 'activo')->limit(1000)->get();
         return $productos;
     }
-    public function show($ID_producto)
+        public function show($ID_producto)
     {
-        $producto = Producto::find($ID_producto);
-        $productosCarousel = $this->getCarouselProducts(); // Obtiene los productos para el carrusel
+        // Asegura que solo se muestren los productos activos
+        $producto = Producto::where('ID_producto', $ID_producto)->where('estado', 'activo')->first();
+        $productosCarousel = $this->getCarouselProducts(); // Continúa obteniendo solo productos activos para el carrusel
 
         if (!$producto) {
-            return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
+            return redirect()->route('productos.index')->with('error', 'Producto no encontrado o inactivo');
         }
 
         return view('productos.show', compact('producto', 'productosCarousel'));
     }
+    
+        public function updateEstado(Request $request, $id)
+    {
+        $producto = Producto::findOrFail($id);
+        $producto->estado = $request->get('estado');
+        $producto->save();
+
+        return redirect()->back()->with('success', 'El estado del producto ha sido actualizado correctamente.');
+    }
+
 }
