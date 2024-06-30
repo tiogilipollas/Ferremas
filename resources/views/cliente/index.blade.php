@@ -110,7 +110,7 @@
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#edit{{ $cliente->rut }}">Editar</button>
                     
                                     <!-- Botón para abrir el modal de eliminar -->
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete{{ $cliente->rut }}">Eliminar</button>
+                                    {{-- <button class="btn btn-danger" data-toggle="modal" data-target="#delete{{ $cliente->rut }}">Eliminar</button> --}}
                                 </td>
                                 </div>
                             </td>
