@@ -36,6 +36,13 @@
                         <input type="email" class="form-control" name="correo_electronico" id="correo_electronico" value="{{ $cliente->correo_electronico }}" />
                     </div>
                 </div>
+                <div class="mb-3">
+                    <label for="estado">Estado</label>
+                    <select name="estado" id="estado" class="form-control" required>
+                        <option value="Activo" {{ $cliente->estado == 'Activo' ? 'selected' : '' }}>Activo</option>
+                        <option value="Inactivo" {{ $cliente->estado == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
+                    </select>
+                </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

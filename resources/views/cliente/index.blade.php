@@ -91,6 +91,7 @@
                             <th scope="col">TELÉFONO</th>
                             <th scope="col">CORREO</th>
                             <th scope="col">ACCIONES</th>
+                            <th scope="col">ESTADO</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,6 +104,7 @@
                             <td>{{ $cliente->direccion }}</td>
                             <td>{{ $cliente->telefono }}</td>
                             <td>{{ $cliente->correo_electronico }}</td>
+                            <td>{{ $cliente->estado }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button class="btn btn-primary" data-toggle="modal" data-target="#edit{{ $cliente->rut }}">Editar</button>

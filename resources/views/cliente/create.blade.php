@@ -62,6 +62,14 @@
                         <label for="correo_electronico" class="form-label">CORREO</label>
                         <input type="email" class="form-control" name="correo_electronico" id="correo_electronico" aria-describedby="helpId" placeholder="" />
                     </div>
+
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado</label>
+                        <select name="estado" id="estado" class="form-control" required>
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="modal-footer">

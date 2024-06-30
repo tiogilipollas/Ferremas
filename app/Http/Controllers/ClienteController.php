@@ -37,6 +37,7 @@ class ClienteController extends Controller
             'direccion' => 'required|string|max:255',
             'telefono' => 'required|string|max:20',
             'correo_electronico' => 'required|email|max:255',
+            'estado' => 'required|string|in:Activo,Inactivo',
         ], [
             'rut.unique' => 'El RUT ya está registrado.',
             'rut.digits' => 'El RUT debe tener exactamente 8 dígitos.',
@@ -51,6 +52,7 @@ class ClienteController extends Controller
         $cliente->direccion = $request->input('direccion');
         $cliente->telefono = $request->input('telefono');
         $cliente->correo_electronico = $request->input('correo_electronico');
+        $cliente->estado = $request->input('estado');
         $cliente->save();
 
         return redirect()->back()->with('success', 'Cliente creado exitosamente');
@@ -84,6 +86,7 @@ class ClienteController extends Controller
             'direccion' => 'required',
             'telefono' => 'required',
             'correo_electronico' => 'required|email',
+            'estado' => 'required|string|in:Activo,Inactivo',
         ]);
 
         $cliente = Cliente::where('rut', $rut)->firstOrFail();
@@ -92,6 +95,7 @@ class ClienteController extends Controller
         $cliente->direccion = $request->input('direccion');
         $cliente->telefono = $request->input('telefono');
         $cliente->correo_electronico = $request->input('correo_electronico');
+        $cliente->estado = $request->input('estado');
         $cliente->update();
 
         return redirect()->back()->with('success', 'Cliente actualizado exitosamente');

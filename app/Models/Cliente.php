@@ -11,7 +11,7 @@ class Cliente extends Model
     protected $table = 'cliente';
     protected $primaryKey= 'rut';
     public $incrementing = false;
-    protected $fillable= ['dv_rut','nombre','apellido','direccion','telefono','correo_electronico'];
+    protected $fillable= ['dv_rut','nombre','apellido','direccion','telefono','correo_electronico','estado'];
     protected $guarded=[];
     public $timestamps=false;
 
