@@ -52,7 +52,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/confirmar_pago', [ConfirmarPagoController::class, 'confirmar_pago'])->name('confirmar_pago');
 
-Route::get('/confirmarpago', [TransbankController::class, 'confirmar_pago'])->name('confirmarpago');
+Route::get('/confirmar-pago', [TransbankController::class, 'confirmar_pago'])->name('confirmarpago');
 
 Route::get('/rechazo', function () { return view('rechazo');})->name('rechazo');
 Route::get('/confirmacion', [ConfirmarPagoController::class, 'mostrarConfirmacion'])->name('confirmacion');

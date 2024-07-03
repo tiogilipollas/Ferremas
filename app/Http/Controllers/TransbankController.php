@@ -9,6 +9,7 @@ use Transbank\Webpay\WebpayPlus\Transaction;
 use App\Models\Compra;
 use App\Models\Pago;
 use App\Models\Pedido;
+use App\Models\Producto;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
@@ -81,77 +82,65 @@ class TransbankController extends Controller
    
     
     public function confirmar_pago(Request $request)
-{
-    try {
-        $confirmacion = (new Transaction)->commit($request->get('token_ws'));
-        \Log::info('Respuesta de la pasarela de pago', ['confirmacion' => $confirmacion]);
-
-        // Obtener la compra según el token
-        $compra = Compra::where('token', $request->get('token_ws'))->first();
-
-        if ($compra === null) {
-            \Log::error('Compra no encontrada', ['token' => $request->get('token_ws')]);
-            return view('rechazo', ['error' => 'Compra no encontrada']);
-        }
-
-        if ($confirmacion->isApproved()) {
-            // Crear el pedido
-            $pedido = new Pedido;
-            $pedido->ID_pedido = $confirmacion->getBuyOrder();
-            $pedido->fecha = date('Y-m-d H:i:s'); // Añade la fecha actual
-            $pedido->estado = 'algún valor'; // Añade un valor para 'estado'
-            $pedido->total = $confirmacion->getAmount(); // Añade el total de la transacción
-            $pedido->save();
-        
-            // Ahora que el pedido existe, puedes actualizar la compra
-            $compra->status = 2;
-            $compra->ID_pedido = $pedido->ID_pedido;
-            $compra->save();
-            \Log::info('Compra actualizada', ['compra' => $compra]);
-
-            // Crear un nuevo registro de pago
-            $pago = new Pago;
-            \Log::info('Compra', ['compra' => $compra]);
-             $pago->ID_pedido = $compra->id;
-             \Log::info('ID_pedido establecido', ['ID_pedido' => $pago->ID_pedido]);
-            $pago->monto = $confirmacion->getAmount();
-            $pago->fecha = Carbon::parse($confirmacion->getTransactionDate())->format('Y-m-d H:i:s');
-
-            // Obtener el tipo de pago
-            $paymentTypeCode = $confirmacion->getPaymentTypeCode();
-            \Log::info('Payment Type Code', ['code' => $paymentTypeCode]);
-            if ($paymentTypeCode == 'VD') {
-                $pago->tipo_pago = 'Débito';
-            } elseif ($paymentTypeCode == 'VN') {
-                $pago->tipo_pago = 'Crédito';       
-            } else {
-                $pago->tipo_pago = 'Desconocido'; // O cualquier valor por defecto que quieras usar
+    {
+        try {
+            $confirmacion = (new Transaction)->commit($request->get('token_ws'));
+            \Log::info('Respuesta de la pasarela de pago', ['confirmacion' => $confirmacion]);
+    
+            // Obtener la compra según el token
+            $compra = Compra::where('token', $request->get('token_ws'))->first();
+    
+            if ($compra === null) {
+                \Log::error('Compra no encontrada', ['token' => $request->get('token_ws')]);
+                return view('rechazo', ['error' => 'Compra no encontrada']);
             }
+    
+            if ($confirmacion->isApproved()) {
+                  // Crear el pedido
+                    $pedido = new Pedido;
+                    $pedido->ID_pedido = $confirmacion->getBuyOrder();
+                    $pedido->fecha = date('Y-m-d H:i:s'); // Añade la fecha actual
+                    $pedido->estado = 'algún valor'; // Añade un valor para 'estado'
+                    $pedido->total = $confirmacion->getAmount(); // Añade el total de la transacción
+                    $pedido->save();
+        
+    
+                // Ahora que el pedido existe, puedes actualizar la compra
+                $compra->status = 2;
+                $compra->ID_pedido = $pedido->ID_pedido;
+                $compra->save();
+                \Log::info('Compra actualizada', ['compra' => $compra]);
 
-            $pago->cuotas = $confirmacion->getInstallmentsNumber();
-            $pago->numero_tarjeta = $confirmacion->getCardDetail()['card_number'];
-            $pago->save();
-            \Log::info('Pago guardado', ['pago' => $pago]);
-            // Pasar la variable $pago a la vista 'confirmar'
-            // Log antes de la primera redirección
-            \Log::info('Redirigiendo a confirmar con pago', ['pago' => $pago, 'compra' => $compra]);
-            return view('confirmar', ['pago' => $pago, 'compra' => $compra]);
-
-            // Verificar el valor de ID_pedido después de guardar
-            $compra = Compra::find($compra->id); 
-            \Log::info('Compra después de guardar', ['compra' => $compra]);
-
-            // Log antes de la segunda redirección 
-            \Log::info('Redirigiendo a confirmar con compra', ['compra' => $compra]);
-            return view('confirmar', ['compra' => $compra]);
-        } else {
-            \Log::error('Pago rechazado', ['confirmacion' => $confirmacion]);
-            return view('rechazo', ['error' => 'Pago rechazado']);
+                // Crear un nuevo registro de pago
+                $pago = new Pago;
+                $pago->ID_pedido = $compra->id;
+                $pago->monto = $confirmacion->getAmount();
+                $pago->fecha = Carbon::parse($confirmacion->getTransactionDate())->format('Y-m-d H:i:s');
+                $paymentTypeCode = $confirmacion->getPaymentTypeCode();
+                if ($paymentTypeCode == 'VD') {
+                    $pago->tipo_pago = 'Débito';
+                } elseif ($paymentTypeCode == 'VN') {
+                    $pago->tipo_pago = 'Crédito';       
+                } else {
+                    $pago->tipo_pago = 'Desconocido'; 
+                }
+                $pago->cuotas = $confirmacion->getInstallmentsNumber();
+                $pago->numero_tarjeta = $confirmacion->getCardDetail()['card_number'];
+                $pago->save();
+                \Log::info('Pago guardado', ['pago' => $pago]);
+    
+                // Redirigir a la vista de confirmación
+                return view('confirmar', ['pago' => $pago, 'compra' => $compra]);
+            } else {
+                \Log::error('Pago rechazado', ['confirmacion' => $confirmacion]);
+                return view('rechazo', ['error' => 'Pago rechazado']);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error confirmando transacción con Webpay', ['error' => $e->getMessage()]);
+            return view('rechazo', ['error' => 'Error confirmando transacción con Webpay']);
         }
-    } catch (\Exception $e) {
-        \Log::error('Error confirmando transacción con Webpay', ['error' => $e->getMessage()]);
-        return view('rechazo', ['error' => 'Error confirmando transacción con Webpay']);
     }
-}
+    
+
 
 }

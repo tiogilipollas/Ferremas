@@ -4,7 +4,7 @@ $(document).ready(function() {
     loadCart();
     renderCartItems();
     updateTotal();
-    updateCartCount(); // Llamada inicial para contar los productos
+    updateCartCount();
 });
 
 function saveCart() {
@@ -46,22 +46,32 @@ function updateCartCount() {
         $('#cart-count-badge').show();
     }
 }
+
 function emptyCart() {
-    console.log('Vaciando el carrito...', cart); // Estado del carrito antes de vaciarlo
-    cart = []; // Vaciar el arreglo del carrito
-    console.log('Intentando eliminar el carrito del localStorage...');
-    localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
-    console.log('Carrito eliminado del localStorage.');
-    updateCartCount(); // Actualizar el contador de productos en el carrito
-    updateTotal(); // Actualizar el total del carrito
-    console.log('Carrito vacío:', cart); // Estado del carrito después de vaciarlo
-    // Aquí puedes agregar cualquier otra lógica necesaria para reflejar el carrito vacío en la UI
+    cart = [];
+    localStorage.removeItem('cart');
+    updateCartCount();
+    updateTotal();
+    renderCartItems();
 }
 
+async function getStockForProduct(name) {
+    try {
+        const response = await fetch(`http://localhost:3000/get-stock?name=${encodeURIComponent(name)}`);
+        const data = await response.json();
+        if (response.ok) {
+            return data.stock;
+        } else {
+            throw new Error(data.error);
+        }
+    } catch (error) {
+        console.error('Error al obtener el stock del producto:', error);
+        throw error;
+    }
+}
 
 function renderCartItems() {
     $('#cart-items').empty();
-
     $.each(cart, function(index, product) {
         var productTotal = Number(product.price) * product.quantity;
         $('#cart-items').append(`
@@ -79,33 +89,7 @@ function renderCartItems() {
     });
 }
 
-$('.add-to-cart').click(function() {
-    var name = $(this).data('name');
-    var price = Number($(this).data('price'));
-    var img = $(this).data('img');
-
-    var existingProduct = $.grep(cart, function(product) {
-        return product.name === name;
-    });
-
-    if (existingProduct.length > 0) {
-        existingProduct[0].quantity += 1;
-    } else {
-        var product = {name: name, price: price, img: img, quantity: 1};
-        cart.push(product);
-    }
-
-    renderCartItems();
-    updateTotal();
-    updateCartCount(); // Actualizar el contador de productos
-    saveCart();
-
-    $('.cart-panel').addClass('show');
-    $('#overlay').show();
-    $('body').addClass('no-scroll');
-});
-
-$('#cart-items').on('click', '.decrease-quantity', function() {
+$('#cart-items').on('click', '.decrease-quantity', async function() {
     var index = $(this).data('index');
     var product = cart[index];
 
@@ -113,20 +97,30 @@ $('#cart-items').on('click', '.decrease-quantity', function() {
         product.quantity -= 1;
         renderCartItems();
         updateTotal();
-        updateCartCount(); // Actualizar el contador de productos
+        updateCartCount();
         saveCart();
     }
 });
 
-$('#cart-items').on('click', '.increase-quantity', function() {
+$('#cart-items').on('click', '.increase-quantity', async function() {
     var index = $(this).data('index');
     var product = cart[index];
 
-    product.quantity += 1;
-    renderCartItems();
-    updateTotal();
-    updateCartCount(); // Actualizar el contador de productos
-    saveCart();
+    try {
+        var stock = await getStockForProduct(product.name);
+        if (product.quantity < stock) {
+            product.quantity += 1;
+            renderCartItems();
+            updateTotal();
+            updateCartCount();
+            saveCart();
+        } else {
+            alert('No puedes agregar más de este producto. Stock insuficiente.');
+        }
+    } catch (error) {
+        console.error('Error al verificar el stock:', error);
+        alert('Error al verificar el stock. Inténtalo de nuevo más tarde.');
+    }
 });
 
 $('#cart-items').on('click', '.remove-from-cart', function() {
@@ -134,16 +128,52 @@ $('#cart-items').on('click', '.remove-from-cart', function() {
     cart.splice(index, 1);
     renderCartItems();
     updateTotal();
-    updateCartCount(); // Actualizar el contador de productos
+    updateCartCount();
     saveCart();
 });
 
-var debounce = false;
+$('.add-to-cart').click(async function() {
+    var name = $(this).data('name');
+    var price = Number($(this).data('price'));
+    var img = $(this).data('img');
 
-$('#cart-button').on('click', function () {
-    if (debounce) return;
-    debounce = true;
+    try {
+        var stock = await getStockForProduct(name);
 
+        var existingProduct = $.grep(cart, function(product) {
+            return product.name === name;
+        });
+
+        if (existingProduct.length > 0) {
+            if (existingProduct[0].quantity < stock) {
+                existingProduct[0].quantity += 1;
+            } else {
+                alert('No puedes agregar más de este producto. Stock insuficiente.');
+            }
+        } else {
+            if (stock > 0) {
+                var product = { name: name, price: price, img: img, quantity: 1 };
+                cart.push(product);
+            } else {
+                alert('Producto sin stock.');
+            }
+        }
+
+        renderCartItems();
+        updateTotal();
+        updateCartCount();
+        saveCart();
+
+        $('.cart-panel').addClass('show');
+        $('#overlay').show();
+        $('body').addClass('no-scroll');
+    } catch (error) {
+        console.error('Error al verificar el stock:', error);
+        alert('Error al verificar el stock. Inténtalo de nuevo más tarde.');
+    }
+});
+
+$('#cart-button').on('click', function() {
     var cartPanel = $('#cart');
     var overlay = $('#overlay');
     var body = $('body');
@@ -151,18 +181,45 @@ $('#cart-button').on('click', function () {
     cartPanel.toggleClass('show');
     overlay.toggle();
     body.toggleClass('no-scroll');
-
-    setTimeout(function() {
-        debounce = false;   
-    }, 300);
 });
 
-$('#overlay').on('click', function () {
+$('#overlay').on('click', function() {
     var cartPanel = $('#cart');
     var overlay = $('#overlay');
     var body = $('body');
 
     cartPanel.removeClass('show');
-    overlay.hide(); 
+    overlay.hide();
     body.removeClass('no-scroll');
 });
+
+function enviarCarritoAlServidor() {
+    const url = 'https://ferremas.test/api/confirmar_pago'; // Cambia esto por la URL real de tu API
+
+    fetch(url, {
+        method: 'POST', // Método HTTP
+        headers: {
+            'Content-Type': 'application/json', // Indicar que el cuerpo de la solicitud es JSON
+        },
+        body: JSON.stringify({productos: cart}), // Enviar el carrito como JSON
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Compra realizada con éxito:', data);
+        // Aquí puedes, por ejemplo, limpiar el carrito
+        cart = []; // Limpiar el carrito local
+        saveCart(); // Guardar el carrito vacío en localStorage
+        renderCartItems(); // Actualizar la visualización del carrito
+        updateTotal(); // Actualizar el total
+        updateCartCount(); // Actualizar el contador del carrito
+        // Redirigir al usuario o mostrar un mensaje de éxito
+    })
+    .catch(error => {
+        console.error('Error al realizar la compra:', error);
+    });
+}
