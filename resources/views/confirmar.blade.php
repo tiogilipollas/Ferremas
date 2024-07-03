@@ -1,8 +1,6 @@
-
 @extends('layouts.productos')
 
 @section('content')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -25,5 +23,14 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('scripts')
+    <script src="{{ asset('js/carrito.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Confirmación de pago cargada');
+            emptyCart();
+        });
+    </script>
 @endsection

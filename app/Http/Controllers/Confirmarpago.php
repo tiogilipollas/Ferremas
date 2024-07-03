@@ -50,7 +50,7 @@ class Confirmarpago extends Controller
         } else {
             // El pago fue rechazado
             // Aquí puedes mostrar un mensaje de error al usuario
-            return redirect()->route('error', ['message' => 'El pago fue rechazado.']);
+            return redirect()->route('rechazo', ['message' => 'El pago fue rechazado.']);
         }
     }
 }

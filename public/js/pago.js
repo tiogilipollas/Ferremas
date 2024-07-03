@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const total = getCartTotalFromSummary();
         console.log('Total del carrito:', total);
 
-        fetch('http://ferremas.test/api/iniciar_compra', {
+        fetch('https://ferremas.test/api/iniciar_compra', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
+            if (data.success) { // Asume que la API responde con un campo 'success' en caso de éxito
+                emptyCart(); // Llama a la función definida en carrito.js
+            }
             if (data.token && data.url) {
                 // Crear un formulario temporal para redirigir a Webpay
                 const form = document.createElement('form');
@@ -81,4 +84,18 @@ document.addEventListener('DOMContentLoaded', function () {
     function formatCurrency(amount) {
         return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(amount);
     }
+
+    function emptyCart() {
+        console.log('Vaciando el carrito...', cart); // Estado del carrito antes de vaciarlo
+        cart = []; // Vaciar el arreglo del carrito
+        console.log('Intentando eliminar el carrito del localStorage...');
+        localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
+        console.log(    'Carrito eliminado del localStorage.');
+        updateCartCount(); // Actualizar el contador de productos en el carrito
+        updateTotal(); // Actualizar el total del carrito
+        console.log('Carrito vacío:', cart); // Estado del carrito después de vaciarlo
+        // Aquí puedes agregar cualquier otra lógica necesaria para reflejar el carrito vacío en la UI
+    }   
+    
+
 });

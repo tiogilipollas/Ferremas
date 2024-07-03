@@ -20,6 +20,9 @@
         </div>
         <button id="checkout-button" class="btn btn-primary">Ir a pagar</button>
     </div>
+    <!-- Asegúrate de incluir jQuery antes de tus scripts personalizados -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/carrito.js') }}"></script>
     <script src="{{ asset('js/pago.js') }}"></script>
 </body>
 </html>

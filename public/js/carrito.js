@@ -46,6 +46,17 @@ function updateCartCount() {
         $('#cart-count-badge').show();
     }
 }
+function emptyCart() {
+    console.log('Vaciando el carrito...', cart); // Estado del carrito antes de vaciarlo
+    cart = []; // Vaciar el arreglo del carrito
+    console.log('Intentando eliminar el carrito del localStorage...');
+    localStorage.removeItem('cart'); // Eliminar el carrito del localStorage
+    console.log('Carrito eliminado del localStorage.');
+    updateCartCount(); // Actualizar el contador de productos en el carrito
+    updateTotal(); // Actualizar el total del carrito
+    console.log('Carrito vacío:', cart); // Estado del carrito después de vaciarlo
+    // Aquí puedes agregar cualquier otra lógica necesaria para reflejar el carrito vacío en la UI
+}
 
 
 function renderCartItems() {

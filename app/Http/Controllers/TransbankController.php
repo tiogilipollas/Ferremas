@@ -28,26 +28,33 @@ class TransbankController extends Controller
 
     public function iniciar_compra(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'total' => 'required|numeric',
         ]);
-
+    
         $totalCarrito = floatval($request->input('total'));
-
+    
         // Crear una nueva instancia de Compra
         $nueva_compra = new Compra();
-        $nueva_compra->session_id = session()->getId(); // Usar un identificador de sesión real
+        $nueva_compra->session_id = session()->getId();
         $nueva_compra->total = $totalCarrito;
-        $nueva_compra->save();
-
-        // Iniciar la transacción en Webpay Plus
-        $response = $this->start_webpay_plus_transaction($nueva_compra);
-
-        if ($response) {
-            return response()->json(['token' => $response->getToken(), 'url' => $response->getUrl()]);
-        } else {
-            return response()->json(['error' => 'Error al iniciar la transacción'], 500);
+    
+        try {
+            $nueva_compra->save();
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al guardar la compra: ' . $e->getMessage()], 500);
         }
+    
+        try {
+            $response = $this->start_webpay_plus_transaction($nueva_compra);
+            if (!$response) {
+                throw new \Exception('No se recibió respuesta de start_webpay_plus_transaction');
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al iniciar la transacción: ' . $e->getMessage()], 500);
+        }
+    
+        return response()->json(['success' => true, 'token' => $response->getToken(), 'url' => $response->getUrl()]);
     }
 
     private function start_webpay_plus_transaction($compra)
@@ -126,12 +133,16 @@ class TransbankController extends Controller
             $pago->save();
             \Log::info('Pago guardado', ['pago' => $pago]);
             // Pasar la variable $pago a la vista 'confirmar'
+            // Log antes de la primera redirección
+            \Log::info('Redirigiendo a confirmar con pago', ['pago' => $pago, 'compra' => $compra]);
             return view('confirmar', ['pago' => $pago, 'compra' => $compra]);
 
             // Verificar el valor de ID_pedido después de guardar
-            $compra = Compra::find($compra->id);
-            \Log::info('Compra después de guardar', ['compra' => $compra]); 
+            $compra = Compra::find($compra->id); 
+            \Log::info('Compra después de guardar', ['compra' => $compra]);
 
+            // Log antes de la segunda redirección 
+            \Log::info('Redirigiendo a confirmar con compra', ['compra' => $compra]);
             return view('confirmar', ['compra' => $compra]);
         } else {
             \Log::error('Pago rechazado', ['confirmacion' => $confirmacion]);
