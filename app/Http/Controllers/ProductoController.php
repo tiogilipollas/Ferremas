@@ -8,7 +8,8 @@ use App\Models\TipoProducto; // Importa el modelo TipoProducto
 use Illuminate\Support\Facades\DB;
 
 class ProductoController extends Controller
-{
+{   
+
     public function listar(Request $request)
     {
         $categoria = $request->input('categoria');

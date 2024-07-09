@@ -143,6 +143,26 @@
     .carousel-caption p {
         font-size: 2rem;
     }
+    .card-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            background-color: #f8f9fa;
+        }
+        .card {
+            transition: transform .2s, box-shadow .2s, background-color .2s;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .card-img-top {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .text-decoration-none {
+            text-decoration: none!important;
+        }
+    
+
+  
 </style>
 
 
@@ -156,21 +176,21 @@
     <div class="carousel-inner">
         <div class="carousel-item active" data-interval="4000">
             <img src="https://www.dimacen.cl/images/productos/ferreteria.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h5>Todo para tu construcción</h5>
                 <p>Encuentra las mejores herramientas y materiales en Ferremas</p>
             </div>
         </div>
         <div class="carousel-item" data-interval="4000">
             <img src="https://www.dimacen.cl/images/slides/1.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h5>Calidad y durabilidad</h5>
                 <p>Nuestros productos garantizan la máxima eficiencia para tus proyectos</p>
             </div>
         </div>
         <div class="carousel-item" data-interval="4000">
             <img src="https://www.dimacen.cl/images/slides/4.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
+            <div class="carousel-caption">
                 <h5>Asesoramiento experto</h5>
                 <p>Contamos con un equipo de profesionales para ayudarte en tus compras</p>
             </div>
@@ -189,42 +209,42 @@
 
    
 <section class="py-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Eliga el tipo de producto que deseas comprar</h2> <!-- Título agregado -->
-        <div class="row">
-            <div class="col-md-4 text-center px-2">
-                <a href="{{ route('herramientas') }}" class="text-decoration-none text-dark">
-                    <div class="card" style="width: 18rem; transition: transform .2s; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;" onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#f8f9fa';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='';">
-                        <img class="card-img-top" src="{{ asset('img/herramientas.png') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title" style="margin-left: 10px;">Herramientas</h5> 
+        <div class="container">
+            <h2 class="text-center mb-4">Elige el tipo de producto que deseas comprar</h2>
+            <div class="row">
+                <div class="col-md-4 text-center px-2">
+                    <a href="{{ route('herramientas') }}" class="text-decoration-none text-dark">
+                        <div class="card card-hover">
+                            <img class="card-img-top" src="{{ asset('img/herramientas.png') }}" alt="Herramientas">
+                            <div class="card-body">
+                                <h5 class="card-title">Herramientas</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4 text-center px-2">
-                <a href="{{ route('materiales') }}" class="text-decoration-none text-dark">
-                    <div class="card" style="width: 18rem; transition: transform .2s; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;" onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#f8f9fa';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='';">
-                        <img class="card-img-top" src="{{ asset('img/materiales.png') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title" style="margin-left: 10px;">Materiales</h5> 
+                    </a>
+                </div>
+                <div class="col-md-4 text-center px-2">
+                    <a href="{{ route('materiales') }}" class="text-decoration-none text-dark">
+                        <div class="card card-hover">
+                            <img class="card-img-top" src="{{ asset('img/materiales.png') }}" alt="Materiales">
+                            <div class="card-body">
+                                <h5 class="card-title">Materiales</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-4 text-center px-2">
-                <a href="{{ route('equipos') }}" class="text-decoration-none text-dark">
-                    <div class="card" style="width: 18rem; transition: transform .2s; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius: 10px;" onmouseover="this.style.transform='scale(1.05)'; this.style.backgroundColor='#f8f9fa';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='';">
-                        <img class="card-img-top" src="{{ asset('img/equipos.png') }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title" style="margin-left: 10px;">Equipos</h5>
+                    </a>
+                </div>
+                <div class="col-md-4 text-center px-2">
+                    <a href="{{ route('equipos') }}" class="text-decoration-none text-dark">
+                        <div class="card card-hover">
+                            <img class="card-img-top" src="{{ asset('img/equipos.png') }}" alt="Equipos">
+                            <div class="card-body">
+                                <h5 class="card-title">Equipos</h5>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <section class="py-5 bg-light">
     <div class="container">

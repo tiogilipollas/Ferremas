@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <style>
         .card-img-top {
-            object-fit: cover;
+            object-fit: contain; 
             height: 250px; 
+            width: 100%; 
         }
         .payment-methods {
             display: flex;
